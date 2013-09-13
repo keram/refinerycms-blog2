@@ -1,0 +1,70 @@
+en:
+  refinery:
+    plugins:
+      blog:
+        title: Blog
+    admin:
+      blog:
+        posts:
+          actions:
+            create_new: Add New Post
+            edit_post: Edit Post
+          records:
+            title: Posts
+            sorry_no_results: Sorry! There are no results found.
+            no_items_yet: There are no Posts yet. Click "Add New Post" to add your first post.
+          post:
+            view_live: View this post live (opens in a new window)
+            edit: Edit this post
+            delete: Remove this post forever
+            translation_not_exists: This post does not have translation in current frontend language.
+          form:
+            preview_title: Preview blog post in new window
+        categories:
+          actions:
+            create_new: Add New Category
+            edit_category: Edit Category
+          records:
+            title: Categories
+            sorry_no_results: Sorry! There are no results found.
+            no_items_yet: There are no Categories yet. Click "Add New Category" to add your first category.
+          category:
+            translation_not_exists: This category does not have translation in current frontend language.
+            view_live: View this category live (opens in a new window)
+            edit: Edit this category
+            delete: Remove this category forever
+    blog:
+      posts:
+        posted_by: Posted by
+        posted_at: at
+      posts_preview:
+        show:
+          this_is_blog_post_preview: This is blog post preview.
+      shared:
+        posts:
+          read_more: Read more
+        categories:
+          title: Categories
+        rss_feed:
+          title: Subscribe RSS Feed
+        latest_posts:
+          title: Latest Posts
+        tags:
+          title: Tags
+  activerecord:
+    models:
+      'refinery/blog/post': Post
+      'refinery/blog/category': Category
+    attributes:
+      'refinery/blog/post':
+        title: Title
+        custom: Custom slug
+        body: Body
+        teaser: Teaser
+        source_url: Source Url
+        source_url_title: Source Url Title
+        access_count: Access Count
+        image: Featured Image
+        published_at: Published At
+      'refinery/blog/category':
+        title: Title

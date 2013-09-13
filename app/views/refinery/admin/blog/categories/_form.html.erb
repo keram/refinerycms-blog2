@@ -1,0 +1,43 @@
+<%= form_for [refinery, :admin_blog, @category],
+              html: { data: { remote: true }} do |f| %>
+
+  <div class="clearfix">
+    <div class="form-title">
+      <h1>
+        <% if @category.new_record? %>
+          <%= t('create_new', scope: 'refinery.admin.blog.categories.actions') %>
+        <% else %>
+          <%= t('edit_category', scope: 'refinery.admin.blog.categories.actions') %>:
+          <%= link_to_if @category.translation.persisted?, @category, blog_category_path(@category), target: '_blank' %>
+          <sup>
+          <%= record_meta_information @category %>
+          </sup>
+        <% end %>
+      </h1>
+      <p class="less-important">
+        <%= link_to refinery_plugin.title, refinery.admin_blog_root_path(frontend_locale_param) %> /
+        <%= link_to t('title', scope: 'refinery.admin.blog.categories.records'),
+                    refinery.admin_blog_categories_path(frontend_locale_param) %>
+      </p>
+    </div>
+
+    <%= render '/refinery/admin/locale_picker',
+                url: @category.persisted? ? refinery.edit_admin_blog_category_path(@category) : refinery.new_admin_blog_category_path %>
+  </div>
+
+
+  <%= render '/refinery/admin/error_messages',
+              object: f.object,
+              include_object_name: true %>
+
+  <div class="field">
+    <%= f.text_field :title,
+              class: 'larger widest',
+              required: true,
+              placeholder: t('title', scope: 'activerecord.attributes.refinery/blog/category') %>
+  </div>
+
+  <%= render '/refinery/admin/form_actions', f: f,
+             delete_title: t('delete', scope: 'refinery.categories.admin.categories.category'),
+             delete_confirmation: t('message', scope: 'refinery.admin.delete', title: @category) %>
+<% end -%>

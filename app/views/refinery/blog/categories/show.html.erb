@@ -1,0 +1,15 @@
+<% content_for :browser_title do @category end %>
+<% content_for :title do %>
+  <% @page.ancestors.each do |page| %>
+    <%= link_to page.title, refinery.url_for(page.url) %> /
+  <% end -%>
+  <%= link_to @page.title, refinery.url_for(@page.url) %> /
+  <%= @category %>
+<% end %>
+
+<% content_for :body do %>
+  <%= render partial: '/refinery/blog/shared/posts', locals: { posts: @category.posts.with_globalize.page(paginate_page) } %>
+<% end %>
+
+<%= render '/refinery/blog/shared/side_body' %>
+<%= render '/refinery/content_page' %>

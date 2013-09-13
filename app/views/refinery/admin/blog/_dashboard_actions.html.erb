@@ -1,0 +1,6 @@
+<% if ::Refinery::Plugins.active.names.include?('blog') %>
+<li>
+  <%= link_to t('create_new', scope: 'refinery.admin.blog.posts.actions'), refinery.new_admin_blog_post_path,
+               class: 'page-add-icon icon-small icon-with-text' %>
+</li>
+<% end -%>

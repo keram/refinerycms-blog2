@@ -1,0 +1,59 @@
+article footer nav {
+    text-align: center;
+}
+
+article footer nav a {
+    margin: 0;
+}
+
+.teaser {
+    font-size: 125%;
+    line-height: 150%;
+}
+
+.tags a {
+    float: left;
+    display: block;
+    padding: 15px 25px;
+    text-align: center;
+}
+
+.tag2 {
+    font-size: 90%;
+}
+
+.tag4 {
+    font-weight: bold;
+}
+
+.prev {
+    float: left;
+}
+
+.next {
+    float: right;
+}
+
+.widget {
+    border-bottom: solid 1px #ccc;
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+}
+
+.pagination {
+    font-size: 125%;
+}
+
+.pagination a,
+.pagination em {
+    padding: 5px 10px;
+    font-style: normal;
+}
+
+
+.featured-image {
+    float: right;
+    border: solid 3px #eee;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}

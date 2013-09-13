@@ -1,0 +1,10 @@
+<div class="widget clearfix categories">
+  <h2><%= t('.title') %></h2>
+  <ul>
+    <% @categories.each do |category| %>
+      <li<%= " class='selected'" if @category.present? and @category.id == category.id %>>
+        <%= link_to category, blog_category_path(category) %>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,11 @@
+<div>
+  <% if @categories.any? %>
+    <%= render 'categories' %>
+  <% else %>
+    <p>
+      <strong>
+        <%= t('.no_items_yet') %>
+      </strong>
+    </p>
+  <% end %>
+</div>

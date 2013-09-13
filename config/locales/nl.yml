@@ -1,0 +1,34 @@
+nl:
+  refinery:
+    plugins:
+      blog:
+        title: Blog
+    admin:
+      blog:
+        posts:
+          actions:
+            create_new: Nieuwe Post toevoegen
+          records:
+            title: Posts
+            sorry_no_results: Helaas! Er zijn geen resultaten gevonden.
+            no_items_yet: Er zijn nog geen Posts. Druk op 'Nieuwe Post toevoegen' om de eerste toe te voegen.
+          post:
+            view_live: Deze post op de website bekijken (opent in een nieuw venster)
+            edit: Bewerk deze post
+            delete: Deze post definitief verwijderen
+    blog:
+      posts:
+        show:
+          other: Andere Posts
+  activerecord:
+    attributes:
+      'refinery/blog/post':
+        title: Title
+        slug: Slug
+        body: Body
+        teaser: Teaser
+        source_url: Source Url
+        source_url_title: Source Url Title
+        access_count: Access Countclick_link 'Preview'
+        image: Image
+        published_at: Published At

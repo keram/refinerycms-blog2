@@ -1,0 +1,6 @@
+<div class="widget clearfix rss-feed">
+  <h2>
+    <%= link_to t('.title'), rss_feed_path %>
+  </h2>
+  <% content_for :meta, auto_discovery_link_tag(:atom, rss_feed_path, title: 'RSS Feed') -%>
+</div>

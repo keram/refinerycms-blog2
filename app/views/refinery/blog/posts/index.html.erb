@@ -1,0 +1,12 @@
+<% content_for :title do %>
+  <% @page.ancestors.each do |page| %>
+    <%= link_to page.title, refinery.url_for(page.url) %> /
+  <% end -%>
+  <%= @page.title %>
+<% end %>
+<% content_for :body do %>
+  <%= render partial: '/refinery/blog/shared/posts', locals: { posts: @posts } %>
+<% end %>
+
+<%= render '/refinery/blog/shared/side_body' %>
+<%= render '/refinery/content_page' %>

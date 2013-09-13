@@ -1,0 +1,34 @@
+fr:
+  refinery:
+    plugins:
+      blog:
+        title: Blog
+    admin:
+      blog:
+        posts:
+          actions:
+            create_new: Créer un(e) nouve(au/l/lle) Post
+          records:
+            title: Posts
+            sorry_no_results: "Désolé ! Aucun résultat."
+            no_items_yet: 'Il n''y a actuellement aucun(e) Post. Cliquer sur "Créer un(e) nouve(au/l/lle) Post" pour créer votre premi(er/ère) post.'
+          post:
+            view_live: Voir ce(t/tte) post (Ouvre une nouvelle fenêtre)
+            edit: Modifier ce(t/tte) post
+            delete: Supprimer définitivement ce(t/tte) post
+    blog:
+      posts:
+        show:
+          other: Autres Posts
+  activerecord:
+    attributes:
+      'refinery/blog/post':
+        title: Title
+        slug: Slug
+        body: Body
+        teaser: Teaser
+        source_url: Source Url
+        source_url_title: Source Url Title
+        access_count: Access Countclick_link 'Preview'
+        image: Image
+        published_at: Published At

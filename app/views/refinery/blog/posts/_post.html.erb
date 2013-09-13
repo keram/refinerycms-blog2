@@ -1,0 +1,42 @@
+<article>
+  <header>
+    <h1><%= @post.title %></h1>
+  </header>
+
+  <% if @post.image.present? -%>
+  <section class="featured-image">
+    <%= image_fu @post.image, Refinery::Images.user_image_sizes[:medium],
+            class: 'size-large'%>
+  </section>
+  <% end -%>
+
+  <% if @post.teaser.present? -%>
+  <section class="teaser">
+    <%= render_content(@post.teaser) %>
+  </section>
+  <% end -%>
+
+  <section class="body">
+    <%= render_content(@post.body) %>
+  </section>
+
+  <footer class="footer">
+    <hr>
+    <p>
+      <span class="author">
+        <%= t('posted_by', scope: 'refinery.blog.posts') %>
+        <% (authors = @post.authors.map(&:to_s)).each do |author| %>
+          <b><%= author -%></b><% unless authors.last == author -%>, <% end -%>
+        <% end -%>
+      </span>
+      <time class="date posted_at" datetime="<%=l @post.published_at.to_date, format: :default %>" class="posted_at">
+        <%= t('posted_at', scope: 'refinery.blog.posts') %> <%= l(@post.published_at.to_date, format: :long) %>
+      </time>
+    </p>
+    <hr>
+    <%= render partial: '/refinery/blog/posts/nav' %>
+  </footer>
+</article>
+<%= sharing_service_for @post %>
+<hr>
+<%= comment_service_for @post %>

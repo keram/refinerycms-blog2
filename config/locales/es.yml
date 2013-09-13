@@ -1,0 +1,35 @@
+es:
+  refinery:
+    plugins:
+      blog:
+        title: Blog
+#        article: masculino/femenino
+    admin:
+      blog:
+        posts:
+          actions:
+            create_new: Crear nuevo post
+          records:
+            title: Posts
+            sorry_no_results: Lo siento, no hay resultados
+            no_items_yet: No hay posts todavía. Pulsa en "Crear nuevo Post" para crear tu primer post.
+          post:
+            view_live: Ver este post como abierto al público (abre en ventana nueva)
+            edit: Editar este post
+            delete: Borrar este post para siempre
+    blog:
+      posts:
+        show:
+          other: Otros posts
+  activerecord:
+    attributes:
+      'refinery/blog/post':
+        title: Title
+        slug: Slug
+        body: Body
+        teaser: Teaser
+        source_url: Source Url
+        source_url_title: Source Url Title
+        access_count: Access Countclick_link 'Preview'
+        image: Image
+        published_at: Published At

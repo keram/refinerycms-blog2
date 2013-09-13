@@ -1,0 +1,34 @@
+cs:
+  refinery:
+    plugins:
+      blog:
+        title: Blog
+    admin:
+      blog:
+        posts:
+          actions:
+            create_new: Přidat Post
+          records:
+            title: Posts
+            sorry_no_results: Litujeme, ale nebyly nalezny žádné výsledky.
+            no_items_yet: Zatím nebyly vytvořeny žádné Posts. Zvolte "Přidat Post" pro přidání prvního post.
+          post:
+            view_live: Zobrazit náhled post\n(otevře se v novém okně)
+            edit: Upravit post
+            delete: Smazat post
+    blog:
+      posts:
+        show:
+          other: Další Posts
+  activerecord:
+    attributes:
+      'refinery/blog/post':
+        title: Title
+        slug: Slug
+        body: Body
+        teaser: Teaser
+        source_url: Source Url
+        source_url_title: Source Url Title
+        access_count: Access Count
+        image: Image
+        published_at: Published At

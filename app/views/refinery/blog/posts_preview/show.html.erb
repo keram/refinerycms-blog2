@@ -1,0 +1,18 @@
+<% content_for :title do %>
+  <% @page.ancestors.each do |page| %>
+    <%= link_to page.title, refinery.url_for(page.url) %> /
+  <% end -%>
+  <%= link_to @page.title, refinery.url_for(@page.url) %>
+<% end %>
+
+<% content_for :body do %>
+  <%= render '/refinery/blog/posts/post' %>
+<% end %>
+
+<% content_for :side_body do %>
+  <div class="flash info">
+    <%= t('.this_is_blog_post_preview') %>
+  </div>
+<% end %>
+
+<%= render '/refinery/content_page' %>

@@ -1,0 +1,36 @@
+<li class="record" id="<%= dom_id(post) %>">
+  <div class="detail">
+    <span class="title">
+      <%= post.title %>
+    </span>
+
+    <%= record_meta_information post %>
+  </div>
+
+  <span class="actions">
+    <%= link_to t('delete', scope: 'refinery.admin.record'),
+                refinery.admin_blog_post_path(post),
+                class: 'delete confirm-delete nojs-hide icon-small delete-icon',
+                title: t('.delete'),
+                data: {
+                  remote: true,
+                  confirm: t('message', scope: 'refinery.admin.delete', title: post.title)
+                },
+                method: :delete %>
+
+    <%= link_to t('edit', scope: 'refinery.admin.record'),
+                refinery.edit_admin_blog_post_path(post, frontend_locale_param),
+                class: 'icon-small edit-icon',
+                title: t('.edit') %>
+
+    <% if post.translation.new_record? %>
+      <%= content_tag :a, '', class: 'icon-small no-live-icon', title: t('.translation_not_exists') %>
+    <% else %>
+      <%= link_to t('live', scope: 'refinery.admin.record'),
+                  blog_post_path(post, Globalize.locale),
+                  target: '_blank',
+                  class: 'icon-small live-icon',
+                  title: t('.view_live') %>
+    <% end %>
+  </span>
+</li>

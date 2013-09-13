@@ -1,0 +1,36 @@
+<%= render '/refinery/admin/form_advanced_options_menu', f: f %>
+<div id="more-options" class="js-hide clearfix">
+  <div class="hemisquare">
+
+    <div class="field">
+      <h3><%= t('title', scope: 'refinery.admin.blog.categories.records') %></h3>
+      <%= f.collection_select :category_ids, @categories, :id, :title, { },
+                  required: false,
+                  multiple: true,
+                  size: 4,
+                  class: 'widest' %>
+    </div>
+
+    <div class="field">
+      <%= f.label :author %>
+      <%= f.collection_select :author_ids, @users, :id, :to_s, { },
+                  required: true,
+                  multiple: true,
+                  size: 4,
+                  class: 'widest' %>
+    </div>
+
+    <div class="field">
+      <%= f.label :source_url %>
+      <%= f.url_field :source_url, class: 'widest' %>
+    </div>
+
+    <div class="field">
+      <%= f.label :source_url_title %>
+      <%= f.text_field :source_url_title, class: 'widest' %>
+    </div>
+
+  </div>
+
+  <%= render 'form_advanced_options_seo', f: f %>
+</div>

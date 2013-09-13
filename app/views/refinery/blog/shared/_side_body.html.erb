@@ -1,0 +1,6 @@
+<% content_for :side_body do %>
+  <%= render '/refinery/blog/shared/rss_feed' %>
+  <%= render '/refinery/blog/shared/latest_posts' if @latest_posts.any? %>
+  <%= render '/refinery/blog/shared/categories' if @categories.any? %>
+  <%= render '/refinery/blog/shared/tags' if @tags.any? %>
+<% end %>

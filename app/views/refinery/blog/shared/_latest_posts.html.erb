@@ -1,0 +1,10 @@
+<div class="widget clearfix latest-posts">
+  <h2><%= t('.title') %></h2>
+  <ul>
+    <% @latest_posts.each do |post| %>
+      <li>
+        <%= link_to post.title, blog_post_path(post) %>
+      </li>
+    <% end %>
+  </ul>
+</div>

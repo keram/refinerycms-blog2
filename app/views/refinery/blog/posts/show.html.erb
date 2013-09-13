@@ -1,0 +1,13 @@
+<% content_for :title do %>
+  <% @page.ancestors.each do |page| %>
+    <%= link_to page.title, refinery.url_for(page.url) %> /
+  <% end -%>
+  <%= link_to @page.title, refinery.url_for(@page.url) %>
+<% end %>
+
+<% content_for :body do %>
+  <%= render 'post' %>
+<% end %>
+
+<%= render '/refinery/blog/shared/side_body' %>
+<%= render '/refinery/content_page' %>

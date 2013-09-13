@@ -1,0 +1,27 @@
+<ul>
+  <li<%= ' class="active"'.html_safe if controller_name == 'posts' && action_name == 'index' %>>
+    <%= link_to t('title', scope: 'refinery.admin.blog.posts.records'),
+                refinery.admin_blog_root_url(frontend_locale_param),
+                class: 'page-icon icon-small icon-with-text' %>
+  </li>
+  <li>
+    <%= link_to t('create_new', scope: 'refinery.admin.blog.posts.actions'),
+                refinery.new_admin_blog_post_url(frontend_locale_param),
+                class: 'page-add-icon icon-small icon-with-text' %>
+  </li>
+</ul>
+<ul>
+  <li<%= ' class="active"'.html_safe if controller_name == 'categories' && action_name == 'index' %>>
+    <%= link_to t('title', scope: 'refinery.admin.blog.categories.records'),
+                refinery.admin_blog_categories_path(frontend_locale_param),
+                class: 'icon-small icon-with-text folder-edit-icon' %>
+  </li>
+  <li>
+    <%= link_to t('create_new', scope: 'refinery.admin.blog.categories.actions'),
+                refinery.new_admin_blog_category_path(frontend_locale_param),
+                class: 'icon-small icon-with-text folder-add-icon' %>
+  </li>
+</ul>
+
+<% url = (controller_name == 'posts') ? refinery.admin_blog_root_path : refinery.admin_blog_categories_path %>
+<%= render 'refinery/admin/actions_locale_picker', url: url %>
