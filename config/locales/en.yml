@@ -18,6 +18,7 @@ en:
             edit: Edit this post
             delete: Remove this post forever
             translation_not_exists: This post does not have translation in current frontend language.
+            access_count: Access count
           form:
             preview_title: Preview blog post in new window
         categories:
@@ -51,6 +52,8 @@ en:
           title: Latest Posts
         tags:
           title: Tags
+        social_networks:
+          follow_on: Follow on %{network}
   activerecord:
     models:
       'refinery/blog/post': Post
@@ -61,10 +64,10 @@ en:
         custom: Custom slug
         body: Body
         teaser: Teaser
-        source_url: Source Url
-        source_url_title: Source Url Title
-        access_count: Access Count
-        image: Featured Image
-        published_at: Published At
+        source_url: Source url
+        source_url_title: Source url title
+        access_count: Access count
+        featured_image_id: Featured image
+        published_at: Published at
       'refinery/blog/category':
         title: Title

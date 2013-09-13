@@ -44,7 +44,7 @@
         <a href="#blog-teaser"><%= t('teaser', scope: 'activerecord.attributes.refinery/blog/post') %></a>
       </li>
       <li>
-        <a href="#blog-image"><%= t('image', scope: 'activerecord.attributes.refinery/blog/post') %></a>
+        <a href="#blog-featured-image"><%= t('featured_image_id', scope: 'activerecord.attributes.refinery/blog/post') %></a>
       </li>
     </ul>
 
@@ -62,13 +62,13 @@
                   field: :teaser -%>
     </div>
 
-    <div id="blog-image" class="field">
+    <div id="blog-featured-image" class="field">
       <br>
-      <%= f.label :image, class: 'js-hide' %>
+      <%= f.label :featured_image_id, class: 'js-hide' %>
       <%= render '/refinery/admin/image_picker',
                  f: f,
-                 field: :image_id,
-                 image: @post.image %>
+                 field: :featured_image_id,
+                 image: @post.featured_image %>
     </div>
 
   </div>

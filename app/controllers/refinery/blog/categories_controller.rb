@@ -9,7 +9,7 @@ module Refinery
       end
 
       def show
-        @category ||= Category.includes(:translations).with_globalize(slug: params[:id])
+        @category ||= Category.includes(:translations).with_globalize(slug: params[:id].to_s).first
       end
 
       private

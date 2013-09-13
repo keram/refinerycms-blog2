@@ -1,22 +1,26 @@
 <% content_for :title do %>
-  <% @page.ancestors.each do |page| %>
-    <%= link_to page.title, refinery.url_for(page.url) %> /
+  <% cache refinery_record_cache_key @page, :title do -%>
+    <% @page.ancestors.each do |page| %>
+      <%= link_to page.title, refinery.url_for(page.url) %> /
+    <% end -%>
+    <%= @page.title %>
   <% end -%>
-  <%= @page.title %>
 <% end %>
 <% content_for :body do %>
-  <ul class="records">
-    <% @categories.each do |category| %>
-      <li>
-        <h2>
-        <%= link_to blog_category_path(category) do %>
-          <%= category %>
-          (<%= category.posts.with_globalize.size %>)
-        <% end -%>
-        </h2>
-      </li>
-    <% end %>
-  </ul>
+  <% cache refinery_records_cache_key @categories do -%>
+    <ul class="records">
+      <% @categories.each do |category| %>
+        <li>
+          <h2>
+          <%= link_to blog_category_path(category) do %>
+            <%= category %>
+            (<%= category.posts.with_globalize.size %>)
+          <% end -%>
+          </h2>
+        </li>
+      <% end %>
+    </ul>
+  <% end -%>
 <% end %>
 
 <%= render '/refinery/content_page' %>

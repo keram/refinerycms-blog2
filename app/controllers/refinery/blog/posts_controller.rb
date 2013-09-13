@@ -23,6 +23,8 @@ module Refinery
       end
 
       def show
+        @post.increment!(:access_count, 1) if @post.live? && !current_refinery_user
+
         present(@post)
       end
 
@@ -51,7 +53,9 @@ module Refinery
       private
 
       def find_all_posts
-        @posts = Post.live.with_globalize.includes(:image, :translations).references(:categories)
+        @posts = Post.live.with_globalize
+                    .includes(:featured_image, :translations).references(:categories)
+                    .order(published_at: :desc)
       end
 
       def paginate_all_posts
@@ -68,7 +72,7 @@ module Refinery
       end
 
       def find_post
-        @post ||= blog_post.with_globalize(slug: params[:id].to_s).first
+        @post ||= blog_post.includes(:featured_image, :translations).with_globalize(slug: params[:id].to_s).first
 
         @post || error_404
       end

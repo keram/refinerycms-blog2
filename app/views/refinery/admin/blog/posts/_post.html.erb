@@ -5,6 +5,9 @@
     </span>
 
     <%= record_meta_information post %>
+    <% if post.live? %>
+      <span class="label" title="<%= t('.access_count') %>"><%= post.access_count %></span>
+    <% end %>
   </div>
 
   <span class="actions">

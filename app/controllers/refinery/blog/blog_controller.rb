@@ -18,7 +18,9 @@ module Refinery
       end
 
       def find_latest_posts
-        @latest_posts = Post.live.includes(:translations).with_globalize.paginate(page: 1, per_page: LATEST_POSTS_PER_PAGE)
+        @latest_posts = Post.live.includes(:translations)
+                            .with_globalize.paginate(page: 1, per_page: LATEST_POSTS_PER_PAGE)
+                            .order(published_at: :desc)
       end
 
       def find_tags

@@ -16,7 +16,7 @@ module Refinery
         params.require(:post).permit(
             :title, :body, :teaser, :source_url,
             :source_url_title, :access_count,
-            :status, :image_id, :published_at,
+            :status, :featured_image_id, :published_at,
             :tag_list, :custom_slug,
             :browser_title, :meta_description,
             category_ids: [],

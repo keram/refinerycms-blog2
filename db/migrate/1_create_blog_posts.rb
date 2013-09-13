@@ -6,7 +6,7 @@ class CreateBlogPosts < ActiveRecord::Migration
       t.string :source_url
       t.string :source_url_title
       t.integer :access_count,    null: false, default: 0
-      t.integer :image_id
+      t.integer :featured_image_id
       t.datetime :published_at,   null: false
 
       t.timestamps null: false
@@ -30,7 +30,8 @@ class CreateBlogPosts < ActiveRecord::Migration
     end
 
     create_table :refinery_blog_categories do |t|
-      t.string :slug
+      t.string :slug, null: false
+      t.timestamps null: false
     end
 
     create_table :refinery_blog_categorization do |t|

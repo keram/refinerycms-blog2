@@ -27,7 +27,7 @@ module Refinery
       has_many :blog_post_authors, dependent: :destroy, foreign_key: :blog_post_id
       has_many :authors, through: :blog_post_authors, source: :user
 
-      belongs_to :image, class_name: '::Refinery::Image'
+      belongs_to :featured_image, class_name: '::Refinery::Image'
 
       # Docs for friendly_id http://github.com/norman/friendly_id
       friendly_id_options = { use: [:slugged, :reserved, :globalize],

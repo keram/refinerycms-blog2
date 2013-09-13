@@ -1,4 +1,4 @@
-<% content_for :browser_title,  @date_title %>
+<% content_for :browser_title, @date_title %>
 <% content_for :title do %>
   <% @page.ancestors.each do |page| %>
     <%= link_to page.title, refinery.url_for(page.url) %> /

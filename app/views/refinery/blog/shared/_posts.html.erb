@@ -1,13 +1,14 @@
+<%# cache refinery_records_cache_key posts do -%>
 <ul class="records">
 <% posts.each do |post| %>
   <li>
     <h2><%= link_to post.title, blog_post_path(post) %></h2>
-    <% if post.image.present? || post.teaser.present? %>
+    <% if post.featured_image.present? || post.teaser.present? %>
       <div class="clearfix">
-      <% if post.image.present? %>
+      <% if post.featured_image.present? %>
         <section class="featured-image" >
         <%= link_to blog_post_path(post) do %>
-          <%= image_fu post.image, Refinery::Images.user_image_sizes[:small],
+          <%= image_fu post.featured_image, Refinery::Images.user_image_sizes[:small],
                   class: 'size-medium'%>
         <% end -%>
         </section>
@@ -27,3 +28,4 @@
 <% end %>
 </ul>
 <%= will_paginate posts %>
+<%# end -%>

@@ -1,14 +1,16 @@
 <% content_for :browser_title do @category end %>
 <% content_for :title do %>
-  <% @page.ancestors.each do |page| %>
-    <%= link_to page.title, refinery.url_for(page.url) %> /
+  <% cache refinery_record_cache_key @page, :title do -%>
+    <% @page.ancestors.each do |page| %>
+      <%= link_to page.title, refinery.url_for(page.url) %> /
+    <% end -%>
+    <%= link_to @page.title, refinery.url_for(@page.url) %> /
+    <%= @category %>
   <% end -%>
-  <%= link_to @page.title, refinery.url_for(@page.url) %> /
-  <%= @category %>
 <% end %>
 
 <% content_for :body do %>
-  <%= render partial: '/refinery/blog/shared/posts', locals: { posts: @category.posts.with_globalize.page(paginate_page) } %>
+  <%= render partial: '/refinery/blog/shared/posts', locals: { posts: @category.posts.order(published_at: :desc).with_globalize.page(paginate_page) } %>
 <% end %>
 
 <%= render '/refinery/blog/shared/side_body' %>

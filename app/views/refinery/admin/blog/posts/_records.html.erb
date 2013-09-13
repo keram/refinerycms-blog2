@@ -1,3 +1,4 @@
+<% cache refinery_records_cache_key @posts do -%>
 <div>
   <% if @posts.any? %>
     <%= render 'posts' %>
@@ -9,3 +10,4 @@
     </p>
   <% end %>
 </div>
+<% end -%>

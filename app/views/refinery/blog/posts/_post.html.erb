@@ -1,11 +1,13 @@
+<% cache refinery_record_cache_key @post do -%>
 <article>
   <header>
     <h1><%= @post.title %></h1>
   </header>
 
-  <% if @post.image.present? -%>
+  <% if @post.featured_image.present? -%>
   <section class="featured-image">
-    <%= image_fu @post.image, Refinery::Images.user_image_sizes[:medium],
+    <%= image_fu @post.featured_image,
+            Refinery::Images.user_image_sizes[:medium],
             class: 'size-large'%>
   </section>
   <% end -%>
@@ -40,3 +42,4 @@
 <%= sharing_service_for @post %>
 <hr>
 <%= comment_service_for @post %>
+<% end -%>
