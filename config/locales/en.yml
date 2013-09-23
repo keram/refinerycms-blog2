@@ -38,6 +38,7 @@ en:
       posts:
         posted_by: Posted by
         posted_at: at
+        source: Source
       posts_preview:
         show:
           this_is_blog_post_preview: This is blog post preview.

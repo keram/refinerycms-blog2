@@ -36,8 +36,7 @@
               required: true,
               placeholder: t('title', scope: 'activerecord.attributes.refinery/blog/category') %>
   </div>
-
   <%= render '/refinery/admin/form_actions', f: f,
-             delete_title: t('delete', scope: 'refinery.categories.admin.categories.category'),
+             delete_title: t('delete', scope: 'refinery.admin.blog.categories.category'),
              delete_confirmation: t('message', scope: 'refinery.admin.delete', title: @category) %>
 <% end -%>
