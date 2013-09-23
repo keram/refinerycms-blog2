@@ -5,7 +5,6 @@ module Refinery
 
         before_action :find_all_categories, except: :index
         before_action :find_all_users, except: :index
-        before_action :add_current_user_to_authors, only: :update
 
         crudify :'refinery/blog/post'
 
@@ -18,7 +17,7 @@ module Refinery
         private
 
         def redirect_url
-          if @post && @post.persisted?
+          if @post && @post.draft?
             refinery.edit_admin_blog_post_path(@post, frontend_locale_param)
           else
             refinery.admin_blog_posts_path(frontend_locale_param)
@@ -54,12 +53,6 @@ module Refinery
               category_ids: [],
               author_ids: []
           )
-        end
-
-        def add_current_user_to_authors
-          #unless current_refinery_user.has_role?(:superuser)
-          #  params[:post][:author_ids] << current_refinery_user.id
-          #end
         end
 
         def paginate_per_page

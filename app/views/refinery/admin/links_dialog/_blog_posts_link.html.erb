@@ -1,0 +1,5 @@
+<% posts = Refinery::Blog::Post.page(paginate_page) %>
+<ul class="records ui-selectable">
+  <%= render partial: 'blog_post_link', collection: posts %>
+</ul>
+<%= will_paginate posts, params: frontend_locale_param %>

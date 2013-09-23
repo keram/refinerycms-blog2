@@ -1,21 +1,23 @@
-<%# cache refinery_records_cache_key posts do -%>
-<ul class="records">
+<% cache refinery_records_cache_key posts do -%>
+<ul class="records" itemscope itemtype="http://schema.org/Blog">
 <% posts.each do |post| %>
-  <li>
-    <h2><%= link_to post.title, blog_post_path(post) %></h2>
+  <li itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
+    <h2><%= link_to post.title, blog_post_path(post), itemprop: 'name' %></h2>
     <% if post.featured_image.present? || post.teaser.present? %>
       <div class="clearfix">
       <% if post.featured_image.present? %>
         <section class="featured-image" >
         <%= link_to blog_post_path(post) do %>
-          <%= image_fu post.featured_image, Refinery::Images.user_image_sizes[:small],
-                  class: 'size-medium'%>
+          <%= image_fu post.featured_image,
+                      Refinery::Images.user_image_sizes[:small],
+                      class: 'size-medium',
+                      itemprop: 'image' %>
         <% end -%>
         </section>
       <% end %>
 
       <% if post.teaser.present? -%>
-        <section class="teaser">
+        <section class="teaser" itemprop="description" >
           <%= render_content(post.teaser) %>
           <p>
             <%= link_to t('.read_more'), blog_post_path(post) %>
@@ -28,4 +30,4 @@
 <% end %>
 </ul>
 <%= will_paginate posts %>
-<%# end -%>
+<% end -%>

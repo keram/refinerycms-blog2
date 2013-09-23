@@ -163,7 +163,7 @@ describe Refinery do
 
         describe 'edit' do
           before do
-            FactoryGirl.create(:post, title: 'A title')
+            FactoryGirl.create(:post, title: 'A title', authors: [Refinery::User.first])
           end
 
           it 'should succeed' do
@@ -174,6 +174,7 @@ describe Refinery do
             end
 
             fill_in "Title", with: 'A different title'
+
             click_button "Save draft"
 
             page.should have_content("'A different title' was successfully updated.")

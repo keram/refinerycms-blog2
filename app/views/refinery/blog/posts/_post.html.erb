@@ -1,24 +1,22 @@
 <% cache refinery_record_cache_key @post do -%>
-<article>
+<% content_for :opengraph_meta_tags, opengraph_meta_tags_for(@post) %>
+<article role="article" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
-    <h1><%= @post.title %></h1>
+    <h1 itemprop="name"><%= @post.title %></h1>
   </header>
 
   <% if @post.featured_image.present? -%>
   <section class="featured-image">
     <%= image_fu @post.featured_image,
-            Refinery::Images.user_image_sizes[:medium],
-            class: 'size-large'%>
+                Refinery::Images.user_image_sizes[:medium],
+                itemprop:'image',
+                role: 'banner',
+                alt: '',
+                class: 'size-large'%>
   </section>
   <% end -%>
 
-  <% if @post.teaser.present? -%>
-  <section class="teaser">
-    <%= render_content(@post.teaser) %>
-  </section>
-  <% end -%>
-
-  <section class="body">
+  <section class="body" itemprop="articleBody">
     <%= render_content(@post.body) %>
   </section>
 
@@ -28,12 +26,18 @@
       <span class="author">
         <%= t('posted_by', scope: 'refinery.blog.posts') %>
         <% (authors = @post.authors.map(&:to_s)).each do |author| %>
-          <b><%= author -%></b><% unless authors.last == author -%>, <% end -%>
+          <b itemprop="author"><%= author -%></b><% unless authors.last == author -%>, <% end -%>
         <% end -%>
       </span>
-      <time class="date posted_at" datetime="<%=l @post.published_at.to_date, format: :default %>" class="posted_at">
+      <time class="date posted_at" itemprop="datePublished"
+        datetime="<%=l @post.published_at.to_date, format: :default %>" >
         <%= t('posted_at', scope: 'refinery.blog.posts') %> <%= l(@post.published_at.to_date, format: :long) %>
       </time>
+      <% if @post.source_url.present? %>
+        <br>
+        <%= t('source', scope: 'refinery.blog.posts') %>: <%= link_to @post.source_url_title.presence || @post.source_url, @post.source_url,
+                    itemprop: 'isBasedOnUrl' %>
+      <% end %>
     </p>
     <hr>
     <%= render partial: '/refinery/blog/posts/nav' %>

@@ -15,8 +15,15 @@ module Refinery
             class_name: :'refinery/blog/post'
           }
         end
+      end
 
-        Refinery::Dashboard.sidebar_actions.insert(1, '/refinery/admin/blog/dashboard_actions')
+      initializer 'register blog to other engines and plugins' do
+        Refinery::Dashboard.sidebar_actions.insert(1, '/refinery/admin/blog/dashboard_actions') if defined? Refinery::Dashboard
+        Refinery::Links.tabs.unshift('blog_posts') if defined? Refinery::Links
+
+        Refinery::Admin::LinksDialogController.class_eval do
+          helper Refinery::Blog::Engine.helpers
+        end
       end
 
       initializer 'register stylesheets' do

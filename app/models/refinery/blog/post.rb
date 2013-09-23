@@ -8,6 +8,7 @@ module Refinery
     class Post < Refinery::Core::BaseModel
       extend FriendlyId
       extend GlobalizeFinder
+      include Refinery::Blog::Engine.helpers
 
       STATES = %w(draft review live)
 
@@ -36,11 +37,12 @@ module Refinery
       friendly_id :title, friendly_id_options
 
       acts_as_taggable
+      acts_as_opengraph
 
       validates :title, presence: true, uniqueness: true, length: { maximum: Refinery::STRING_MAX_LENGTH }
       validates :slug, allow_blank: true, length: { maximum: Refinery::STRING_MAX_LENGTH }
       validates :custom_slug, uniqueness: true, allow_blank: true, length: { maximum: Refinery::STRING_MAX_LENGTH }
-      # validates_presence_of :authors
+      validates :authors, presence: true
       validates :source_url, allow_blank: true, length: { maximum: Refinery::STRING_MAX_LENGTH }
       validates :source_url_title, allow_blank: true, length: { maximum: Refinery::STRING_MAX_LENGTH }
       validates :status, allow_blank: true, inclusion: { in: STATES }
@@ -101,6 +103,22 @@ module Refinery
         return self[:title] if self[:title].present?
         translation = translations.detect {|t| t.title.present? }
         translation.title if translation
+      end
+
+      def opengraph_title
+        browser_title.presence || title
+      end
+
+      def opengraph_description
+        meta_description.presence || teaser.presence
+      end
+
+      def opengraph_image
+        featured_image.thumbnail(geometry: :medium).url if featured_image_id.present?
+      end
+
+      def opengraph_site_name
+        Refinery::Core.site_name
       end
 
     private

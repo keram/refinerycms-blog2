@@ -42,6 +42,14 @@ module Refinery
         end
       end
 
+      def blog_post_to_link_dialog post
+        {
+          id: post.id,
+          title: post.title,
+          url: blog_post_path(post)
+        }.to_json
+      end
+
     end
   end
 end

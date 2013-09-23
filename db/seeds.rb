@@ -16,7 +16,8 @@ if plugin
       status: 'live',
       deletable: false,
       custom_slug: 'blog',
-      plugin_page_id: plugin.name
+      plugin_page_id: plugin.name,
+      page_type: 'Blog'
     },
     blog_categories: {
       title: 'Categories',
@@ -25,7 +26,8 @@ if plugin
       deletable: false,
       show_in_menu: false,
       custom_slug: 'categories',
-      plugin_page_id: "#{plugin.name}_categories"
+      plugin_page_id: "#{plugin.name}_categories",
+      page_type: 'CollectionPage'
     },
     blog_tags: {
       title: 'Tags',
@@ -34,7 +36,8 @@ if plugin
       deletable: false,
       show_in_menu: false,
       custom_slug: 'tagged',
-      plugin_page_id: "#{plugin.name}_tags"
+      plugin_page_id: "#{plugin.name}_tags",
+      page_type: 'CollectionPage'
     },
     blog_archive: {
       title: 'Archive',
@@ -43,7 +46,8 @@ if plugin
       deletable: false,
       show_in_menu: false,
       custom_slug: 'archive',
-      plugin_page_id: "#{plugin.name}_archive"
+      plugin_page_id: "#{plugin.name}_archive",
+      page_type: 'CollectionPage'
     }
   }
 
