@@ -44,8 +44,9 @@ gem 'uglifier', '~> 2.2.0'
 gem 'turbolinks'
 
 gem 'jquery-rails', '~> 3.0.4'
-gem 'jquery-ui-rails', '~> 4.0.4'
+gem 'jquery-ui-rails', '~> 4.0.5'
 gem 'i18n-iso639matrix', '~> 0.0.1', github: 'keram/i18n-iso639matrix', branch: 'master'
+gem 'refinerycms-links', '~> 0.0.1', github: 'keram/refinerycms-links', branch: 'master'
 
 gem 'acts_as_opengraph', '~> 0.0.5'
 # Load local gems according to Refinery developer preference.

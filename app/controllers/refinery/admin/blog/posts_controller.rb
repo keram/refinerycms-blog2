@@ -17,7 +17,7 @@ module Refinery
         private
 
         def redirect_url
-          if @post && @post.draft?
+          if @post.persisted? && @post.draft?
             refinery.edit_admin_blog_post_path(@post, frontend_locale_param)
           else
             refinery.admin_blog_posts_path(frontend_locale_param)

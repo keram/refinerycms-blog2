@@ -34,6 +34,9 @@ en:
             view_live: View this category live (opens in a new window)
             edit: Edit this category
             delete: Remove this category forever
+      links_dialog:
+        index:
+          blog_posts: Blog posts
     blog:
       posts:
         posted_by: Posted by
