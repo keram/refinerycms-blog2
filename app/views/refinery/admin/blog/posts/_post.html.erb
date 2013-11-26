@@ -22,7 +22,7 @@
                 method: :delete %>
 
     <%= link_to t('edit', scope: 'refinery.admin.record'),
-                refinery.edit_admin_blog_post_path(post, frontend_locale_param),
+                refinery.edit_admin_blog_post_path(post),
                 class: 'icon-small edit-icon',
                 title: t('.edit') %>
 
@@ -30,7 +30,7 @@
       <%= content_tag :a, '', class: 'icon-small no-live-icon', title: t('.translation_not_exists') %>
     <% else %>
       <%= link_to t('live', scope: 'refinery.admin.record'),
-                  blog_post_path(post, Globalize.locale),
+                  refinery.blog_post_path(post),
                   target: '_blank',
                   class: 'icon-small live-icon',
                   title: t('.view_live') %>

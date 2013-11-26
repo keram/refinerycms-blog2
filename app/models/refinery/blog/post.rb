@@ -1,5 +1,5 @@
 require 'friendly_id'
-require 'globalize3'
+require 'globalize'
 require 'acts-as-taggable-on'
 require 'seo_meta'
 
@@ -12,7 +12,7 @@ module Refinery
 
       STATES = %w(draft review live)
 
-      translates :title, :status, :slug, :custom_slug, :body, :teaser, include: :seo_meta
+      translates :title, :status, :slug, :custom_slug, :body, :perex, include: :seo_meta
 
       class Translation
         is_seo_meta
@@ -28,8 +28,6 @@ module Refinery
       has_many :blog_post_authors, dependent: :destroy, foreign_key: :blog_post_id
       has_many :authors, through: :blog_post_authors, source: :user
 
-      belongs_to :featured_image, class_name: '::Refinery::Image'
-
       # Docs for friendly_id http://github.com/norman/friendly_id
       friendly_id_options = { use: [:slugged, :reserved, :globalize],
                   reserved_words: %w(categories tags posts) }
@@ -39,7 +37,10 @@ module Refinery
       acts_as_taggable
       acts_as_opengraph
 
-      validates :title, presence: true, uniqueness: true, length: { maximum: Refinery::STRING_MAX_LENGTH }
+      validates :title, presence: true,
+                        uniqueness: true,
+                        length: { maximum: Refinery::STRING_MAX_LENGTH },
+                        format: { with: /\A[\w]+/ }
       validates :slug, allow_blank: true, length: { maximum: Refinery::STRING_MAX_LENGTH }
       validates :custom_slug, uniqueness: true, allow_blank: true, length: { maximum: Refinery::STRING_MAX_LENGTH }
       validates :authors, presence: true
@@ -110,15 +111,19 @@ module Refinery
       end
 
       def opengraph_description
-        meta_description.presence || teaser.presence
-      end
-
-      def opengraph_image
-        featured_image.thumbnail(geometry: :medium).url if featured_image_id.present?
+        meta_description.presence || perex.presence
       end
 
       def opengraph_site_name
         Refinery::Core.site_name
+      end
+
+      def publish
+        translation.update_attribute(:status, 'live')
+      end
+
+      def unpublish
+        translation.update_attribute(:status, 'draft')
       end
 
     private

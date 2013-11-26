@@ -12,7 +12,7 @@
       <% @categories.each do |category| %>
         <li>
           <h2>
-          <%= link_to blog_category_path(category) do %>
+          <%= link_to refinery.blog_category_path(category) do %>
             <%= category %>
             (<%= category.posts.with_globalize.size %>)
           <% end -%>

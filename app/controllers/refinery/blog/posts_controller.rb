@@ -54,7 +54,7 @@ module Refinery
 
       def find_all_posts
         @posts = Post.live.with_globalize
-                    .includes(:featured_image, :translations).references(:categories)
+                    .includes(:translations).references(:categories)
                     .order(published_at: :desc)
       end
 
@@ -72,7 +72,7 @@ module Refinery
       end
 
       def find_post
-        @post ||= blog_post.includes(:featured_image, :translations).with_globalize(slug: params[:id].to_s).first
+        @post ||= blog_post.includes(:translations).with_globalize(slug: params[:id].to_s).first
 
         @post || error_404
       end

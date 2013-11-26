@@ -1,4 +1,4 @@
-<%= will_paginate @posts, params: frontend_locale_param %>
+<%= will_paginate @posts %>
 <ul class="records">
   <%= render partial: 'post', collection: @posts %>
 </ul>

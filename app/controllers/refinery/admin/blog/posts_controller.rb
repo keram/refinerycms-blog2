@@ -14,24 +14,51 @@ module Refinery
           @post.categories << @categories.first if @categories.any?
         end
 
+        def toggle_publish
+          find_post
+
+          if @post.live?
+            @post.unpublish
+
+            flash.notice = t(
+              'refinery.crudify.unpublished',
+              kind: t(Refinery::Blog::Post.model_name.i18n_key, scope: 'activerecord.models'),
+              what: @post.title
+            )
+          else
+            @post.publish
+
+            flash.notice = t(
+              'refinery.crudify.published',
+              kind: t(Refinery::Blog::Post.model_name.i18n_key, scope: 'activerecord.models'),
+              what: @post.title
+            )
+          end
+
+          render :edit
+        end
+
         private
 
         def redirect_url
-          if @post.persisted? && @post.draft?
-            refinery.edit_admin_blog_post_path(@post, frontend_locale_param)
+          if @post && @post.persisted?
+            refinery.edit_admin_blog_post_path(@post,
+              locale: params[:switch_frontend_locale].presence || Globalize.locale)
           else
-            refinery.admin_blog_posts_path(frontend_locale_param)
+            refinery.admin_blog_posts_path
           end
         end
 
         def find_post
-          if (id = params[:id].to_s).friendly_id?
+          if (id = params[:id].to_s).present?
             Globalize.with_locales(Refinery::I18n.frontend_locales) do |locale|
-              @post ||= Refinery::Blog::Post.with_globalize(slug: id).first unless @post
+              @post ||= Refinery::Blog::Post.with_globalize(slug: id).first
             end
-          else
+
             @post ||= Refinery::Blog::Post.find(id)
           end
+
+          @post || error_404
         end
 
         def find_all_categories
@@ -43,16 +70,18 @@ module Refinery
         end
 
         def post_params
-          params[:post][:status] = 'live' if params[:publish].present?
-          params.require(:post).permit(
-              :title, :body, :teaser, :source_url,
-              :source_url_title, :access_count,
-              :status, :featured_image_id, :published_at,
-              :tag_list, :custom_slug,
-              :browser_title, :meta_description,
-              category_ids: [],
-              author_ids: []
-          )
+          params.require(:post).permit(permitted_post_params)
+        end
+
+        def permitted_post_params
+          @permitted_post_params ||= [
+            :title, :body, :perex, :source_url,
+            :source_url_title, :access_count,
+            :status, :published_at,
+            :tag_list, :custom_slug,
+            :browser_title, :meta_description,
+            category_ids: [],
+            author_ids: []]
         end
 
         def paginate_per_page

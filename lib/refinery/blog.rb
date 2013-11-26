@@ -1,5 +1,5 @@
 require 'refinerycms-core'
-require 'globalize3'
+require 'globalize'
 require 'friendly_id'
 
 module Refinery
@@ -8,6 +8,8 @@ module Refinery
   module Blog
     require 'refinery/blog/engine'
     require 'refinery/blog/configuration'
+
+    require 'refinery/blog/posts/tab'
 
     autoload :Version, 'refinery/blog/version'
 

@@ -31,7 +31,7 @@ describe Refinery do
           context 'valid data' do
             it 'should succeed' do
               fill_in "Title", with: 'This is a test of the first string field'
-              click_button "Save draft"
+              click_button "Save"
 
               page.should have_content("'This is a test of the first string field' was successfully added.")
               Refinery::Blog::Post.count.should == 1
@@ -40,7 +40,7 @@ describe Refinery do
 
           context 'invalid data' do
             it 'should fail' do
-              click_button "Save draft"
+              click_button "Save"
 
               page.should have_content("Title can't be blank")
               Refinery::Blog::Post.count.should == 0
@@ -56,7 +56,7 @@ describe Refinery do
               click_link "Add New Post"
 
               fill_in "Title", with: 'UniqueTitle'
-              click_button "Save draft"
+              click_button "Save"
 
               page.should have_content("There were problems")
               Refinery::Blog::Post.count.should == 1
@@ -77,7 +77,7 @@ describe Refinery do
                 visit refinery.admin_blog_posts_path
                 click_link "Add New Post"
                 fill_in "Title", with: 'First column'
-                click_button "Save draft"
+                click_button "Save"
                 visit refinery.admin_blog_posts_path
               end
 
@@ -95,10 +95,10 @@ describe Refinery do
 
             describe "add a post with title for primary and secondary locale" do
               before do
-                visit refinery.admin_blog_posts_path
+                visit refinery.admin_blog_posts_path(locale: :en)
                 click_link "Add New Post"
                 fill_in "Title", with: 'First column'
-                click_button "Save draft"
+                click_button "Save"
 
                 visit refinery.admin_blog_posts_path
                 within '.actions' do
@@ -110,7 +110,7 @@ describe Refinery do
                 end
 
                 fill_in "Title", with: 'First translated column'
-                click_button "Save draft"
+                click_button "Save"
               end
 
               it 'should succeed' do
@@ -119,7 +119,7 @@ describe Refinery do
               end
 
               it "should show title in Globalize.locale (frontend_locale) locale" do
-                visit refinery.admin_blog_posts_path
+                visit refinery.admin_blog_posts_path(locale: :en)
 
                 p = Refinery::Blog::Post.last
                 within "#post_#{p.id}" do
@@ -146,7 +146,7 @@ describe Refinery do
                 end
 
                 fill_in "Title", with: 'First translated column'
-                click_button "Save draft"
+                click_button "Save"
 
                 visit refinery.admin_blog_posts_path
               end
@@ -175,7 +175,7 @@ describe Refinery do
 
             fill_in "Title", with: 'A different title'
 
-            click_button "Save draft"
+            click_button "Save"
 
             page.should have_content("'A different title' was successfully updated.")
             page.should have_no_content("A title")

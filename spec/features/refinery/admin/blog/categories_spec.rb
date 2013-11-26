@@ -123,6 +123,8 @@ describe Refinery do
 
               it "should show title in Globalize.locale locale" do
                 p = Refinery::Blog::Category.last
+                first('.flag-en').click
+
                 within "#category_#{p.id}" do
                   page.should have_content('First column')
                 end

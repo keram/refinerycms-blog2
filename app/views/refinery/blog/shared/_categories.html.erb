@@ -4,7 +4,7 @@
   <ul>
     <% @categories.each do |category| %>
       <li<%= " class='selected'" if @category.present? and @category.id == category.id %>>
-        <%= link_to category, blog_category_path(category) %>
+        <%= link_to category, refinery.blog_category_path(category) %>
       </li>
     <% end %>
   </ul>

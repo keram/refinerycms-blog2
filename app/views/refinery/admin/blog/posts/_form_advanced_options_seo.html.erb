@@ -3,6 +3,8 @@
 
   <div class="field">
     <%= refinery_form_field f, :text_field, :custom_slug,
-                label: true, help: true, html: { class: 'widest' } -%>
+                label: true,
+                help: t('custom_slug_help', scope: 'refinery.admin.pages.form_advanced_options_seo'),
+                html: { class: 'widest' } -%>
   </div>
 </div>

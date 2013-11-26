@@ -5,13 +5,17 @@
     <h1 itemprop="name"><%= @post.title %></h1>
   </header>
 
+  <section class="perex" itemprop="articlePerex">
+    <%= render_content(@post.perex) %>
+  </section>
+
   <% if @post.featured_image.present? -%>
   <section class="featured-image">
     <%= image_fu @post.featured_image,
-                Refinery::Images.user_image_sizes[:medium],
+                Refinery::Images.user_image_sizes[:large],
                 itemprop:'image',
                 role: 'banner',
-                alt: '',
+                alt: @post.featured_image.alt,
                 class: 'size-large'%>
   </section>
   <% end -%>

@@ -46,7 +46,7 @@ module Refinery
         {
           id: post.id,
           title: post.title,
-          url: blog_post_path(post)
+          url: refinery.blog_post_path(post)
         }.to_json
       end
 

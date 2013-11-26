@@ -22,10 +22,6 @@ module Refinery
 
         if defined? Refinery::Links
           Refinery::Links.tabs.push('blog_posts')
-
-          Refinery::Admin::LinksDialogController.class_eval do
-            helper Refinery::Blog::Engine.helpers
-          end
         end
       end
 
@@ -34,7 +30,14 @@ module Refinery
       end
 
       initializer 'reload routes' do
-        Rails.application.routes_reloader.reload!
+        # This condition is here because somehow, in testing, blog is loaded before authentication,
+        #  and that probably cause this nasty error:
+        # /gems/devise-3.2.2/lib/devise.rb:447:in `configure_warden!': undefined method `failure_app=' for nil:NilClass (NoMethodError)
+        # from /devise-3.2.2/lib/devise/rails/routes.rb:20:in `finalize_with_devise!'
+        # TODO definitely this needs to be fixed so for future me: FIXME FIXME please, please (your past me)
+        if defined?(Refinery::User)
+          Rails.application.routes_reloader.reload!
+        end
       end
 
       config.after_initialize do

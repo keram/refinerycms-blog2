@@ -1,5 +1,5 @@
 require 'friendly_id'
-require 'globalize3'
+require 'globalize'
 
 module Refinery
   module Blog

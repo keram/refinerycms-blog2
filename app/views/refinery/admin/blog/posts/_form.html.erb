@@ -8,21 +8,23 @@
         <%= t('create_new', scope: 'refinery.admin.blog.posts.actions') %>
       <% else %>
         <%= t('edit_post', scope: 'refinery.admin.blog.posts.actions') %>:
-        <%= link_to_if @post.translation.persisted?, @post.title, blog_post_path(@post), target: '_blank' %>
+        <%= link_to_if @post.translation.persisted?, @post.title, refinery.blog_post_path(@post), target: '_blank' %>
         <sup>
         <%= record_meta_information @post %>
         </sup>
       <% end -%>
       </h1>
       <p class="less-important">
-        <%= link_to refinery_plugin.title, refinery.admin_blog_root_path(frontend_locale_param) %> /
+        <%= link_to refinery_plugin.title, refinery.admin_blog_root_path %> /
         <%= link_to t('title', scope: 'refinery.admin.blog.posts.records'),
-                    refinery.admin_blog_posts_path(frontend_locale_param) %>
+                    refinery.admin_blog_posts_path %>
       </p>
     </div>
-
-    <%= render '/refinery/admin/locale_picker',
-                url: @post.persisted? ? refinery.edit_admin_blog_post_path(@post) : refinery.new_admin_blog_post_path %>
+    <%= render('/refinery/admin/locale_picker',
+                (@post.new_record? ?
+                  { url: 'new_admin_blog_post_path' } :
+                  { url: 'edit_admin_blog_post_path', url_options: { id: @post } })
+              ) if Refinery::I18n.frontend_locales.many? %>
   </div>
 
   <%= render '/refinery/admin/error_messages',
@@ -35,17 +37,20 @@
     <%= f.text_field :title, class: 'larger widest' %>
   </div>
 
-  <div class="ui-tabs">
+  <div id="post-parts" class="ui-tabs">
     <ul class="ui-tabs-nav nojs-hide">
-      <li>
+      <li class="post-part">
         <a href="#blog-body"><%= t('body', scope: 'activerecord.attributes.refinery/blog/post') %></a>
       </li>
-      <li>
-        <a href="#blog-teaser"><%= t('teaser', scope: 'activerecord.attributes.refinery/blog/post') %></a>
+      <li class="post-part">
+        <a href="#blog-perex"><%= t('perex', scope: 'activerecord.attributes.refinery/blog/post') %></a>
       </li>
-      <li>
-        <a href="#blog-featured-image"><%= t('featured_image_id', scope: 'activerecord.attributes.refinery/blog/post') %></a>
-      </li>
+
+      <% ::Refinery::Blog::Posts.tabs.each_with_index do |tab, tab_index| %>
+        <li id="custom_<%= tab.name %>_tab" class="post-tab">
+          <%= link_to t(tab.name, scope: 'refinery.admin.pages.tabs'), "#custom_tab_#{tab_index}" %>
+        </li>
+      <% end %>
     </ul>
 
     <div id="blog-body" class="field">
@@ -55,22 +60,18 @@
                   field: :body -%>
     </div>
 
-    <div id="blog-teaser" class="field">
-      <%= f.label :teaser, class: 'js-hide' %>
+    <div id="blog-perex" class="field">
+      <%= f.label :perex, class: 'js-hide' %>
       <%= render '/refinery/admin/wysiwyg',
                   f: f,
-                  field: :teaser -%>
+                  field: :perex -%>
     </div>
 
-    <div id="blog-featured-image" class="field">
-      <br>
-      <%= f.label :featured_image_id, class: 'js-hide' %>
-      <%= render '/refinery/admin/image_picker',
-                 f: f,
-                 field: :featured_image_id,
-                 image: @post.featured_image %>
-    </div>
-
+    <% ::Refinery::Blog::Posts.tabs.each_with_index do |tab, tab_index| %>
+      <div class="ui-tabs-panel post-tab" id="custom_tab_<%= tab_index %>">
+        <%= render tab.partial, f: f %>
+      </div>
+    <% end %>
   </div>
 
   <%= render 'form_advanced_options', f: f %>
@@ -80,12 +81,15 @@
 
       <div class="field">
         <%= f.label :tags %>
-        <%= f.text_field :tag_list, class: 'larger widest' -%>
+        <%= f.text_field :tag_list,
+                    class: 'larger widest autocomplete',
+                    data: {
+                      autocomplete: { multiple: true, source: Refinery::Blog::Post.tag_counts_on(:tags).map(&:name) }
+                    } %>
       </div>
     </div>
     <div class="hemisquare right-side">
-
-      <div class="field">
+      <div class="field <%= 'hide' if @post.new_record? %>">
         <%= f.label :published_at %>
         <%= f.datetime_select :published_at %>
       </div>
@@ -94,36 +98,41 @@
 
   <div class="form-actions clearfix">
     <div class="form-actions-left">
-      <%= submit_tag(t('save_draft', scope: 'refinery.admin.form_actions'),
-                  name: 'draft',
+      <%= submit_tag(t('save', scope: 'refinery.admin.form_actions'),
                   class: 'button submit-button',
                   data: { disable_with: t('processing', scope: 'refinery.admin.form_actions') }
                 ) %>
 
       <%= link_to t('preview', scope: 'refinery.admin.form_actions'),
-                  refinery.preview_blog_post_path(id: @post.id, locale: Globalize.locale),
+                  refinery.preview_blog_post_path(id: @post.id),
                   class: 'button preview-button secondary-button nojs-hide',
                   title: t('.preview_title') %>
 
-      <%= submit_tag(t('publish', scope: 'refinery.admin.form_actions'),
-                  name: 'publish',
-                  class: 'button secondary-button publish-button',
-                  data: { disable_with: t('processing', scope: 'refinery.admin.form_actions') }
-                ) %>
     </div>
 
     <div class="form-actions-right">
 
-     <%= submit_tag(t('delete', scope: 'refinery.admin.form_actions'),
+      <%= link_to(t("#{'un' if @post.live?}publish", scope: 'refinery.admin.form_actions'),
+                  refinery.toggle_publish_admin_blog_post_path(id: @post.id),
+                  class: 'button secondary-button publish-button',
+                  method: :post,
+                  data: {
+                    remote: true,
+                    disable_with: t('processing', scope: 'refinery.admin.form_actions')
+                  }) if @post.persisted? %>
+
+      <%= submit_tag(t('delete', scope: 'refinery.admin.form_actions'),
                   name: 'delete',
                   method: :delete,
                   data: {
                     remote: true,
                     confirm: t('message', scope: 'refinery.admin.delete', title: @post.title)
                   },
-                  title: t('delete', scope: 'refinery.admin.blog.posts.post'),
+                  title: t('delete', scope: 'refinery.admin.pages'),
                   class: 'button confirm-delete danger-button nojs-hide'
                 ) if @post.persisted? %>
     </div>
   </div>
 <% end -%>
+
+  </div>

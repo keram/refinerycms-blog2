@@ -8,21 +8,23 @@
           <%= t('create_new', scope: 'refinery.admin.blog.categories.actions') %>
         <% else %>
           <%= t('edit_category', scope: 'refinery.admin.blog.categories.actions') %>:
-          <%= link_to_if @category.translation.persisted?, @category, blog_category_path(@category), target: '_blank' %>
+          <%= link_to_if @category.translation.persisted?, @category, refinery.blog_category_path(@category), target: '_blank' %>
           <sup>
           <%= record_meta_information @category %>
           </sup>
         <% end %>
       </h1>
       <p class="less-important">
-        <%= link_to refinery_plugin.title, refinery.admin_blog_root_path(frontend_locale_param) %> /
+        <%= link_to refinery_plugin.title, refinery.admin_blog_root_path %> /
         <%= link_to t('title', scope: 'refinery.admin.blog.categories.records'),
-                    refinery.admin_blog_categories_path(frontend_locale_param) %>
+                    refinery.admin_blog_categories_path %>
       </p>
     </div>
-
-    <%= render '/refinery/admin/locale_picker',
-                url: @category.persisted? ? refinery.edit_admin_blog_category_path(@category) : refinery.new_admin_blog_category_path %>
+    <%= render('/refinery/admin/locale_picker',
+                (@category.new_record? ?
+                  { url: 'new_admin_blog_category_path' } :
+                  { url: 'edit_admin_blog_category_path', url_options: { id: @category } })
+              ) if Refinery::I18n.frontend_locales.many? %>
   </div>
 
 

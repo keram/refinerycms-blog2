@@ -2,25 +2,26 @@
 <ul class="records" itemscope itemtype="http://schema.org/Blog">
 <% posts.each do |post| %>
   <li itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
-    <h2><%= link_to post.title, blog_post_path(post), itemprop: 'name' %></h2>
-    <% if post.featured_image.present? || post.teaser.present? %>
+    <h2><%= link_to post.title, refinery.blog_post_path(post), itemprop: 'name' %></h2>
+    <% if post.featured_image.present? || post.perex.present? %>
       <div class="clearfix">
       <% if post.featured_image.present? %>
         <section class="featured-image" >
-        <%= link_to blog_post_path(post) do %>
+        <%= link_to refinery.blog_post_path(post) do %>
           <%= image_fu post.featured_image,
-                      Refinery::Images.user_image_sizes[:small],
+                      Refinery::Images.user_image_sizes[:medium],
                       class: 'size-medium',
+                      alt: post.featured_image.alt,
                       itemprop: 'image' %>
         <% end -%>
         </section>
       <% end %>
 
-      <% if post.teaser.present? -%>
-        <section class="teaser" itemprop="description" >
-          <%= render_content(post.teaser) %>
+      <% if post.perex.present? -%>
+        <section class="perex" itemprop="description" >
+          <%= render_content(post.perex) %>
           <p>
-            <%= link_to t('.read_more'), blog_post_path(post) %>
+            <%= link_to t('.read_more'), refinery.blog_post_path(post) %>
           </p>
         </section>
       <% end -%>
