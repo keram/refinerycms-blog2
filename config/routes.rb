@@ -43,7 +43,10 @@ if plugin
     namespace :admin, path: Refinery::Core.backend_route do
       namespace :blog do
         root to: 'posts#index'
-        resources :posts, except: :show
+        resources :posts, except: :show do
+          post :toggle_publish, on: :member
+        end
+
         resources :categories, except: :show
       end
     end

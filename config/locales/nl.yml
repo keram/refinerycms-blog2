@@ -26,7 +26,7 @@ nl:
         title: Title
         slug: Slug
         body: Body
-        teaser: Teaser
+        perex: Perex
         source_url: Source Url
         source_url_title: Source Url Title
         access_count: Access Countclick_link 'Preview'

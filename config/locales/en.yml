@@ -67,11 +67,10 @@ en:
         title: Title
         custom: Custom slug
         body: Body
-        teaser: Teaser
+        perex: Perex
         source_url: Source url
         source_url_title: Source url title
         access_count: Access count
-        featured_image_id: Featured image
         published_at: Published at
       'refinery/blog/category':
         title: Title

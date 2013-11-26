@@ -26,9 +26,8 @@ cs:
         title: Title
         slug: Slug
         body: Body
-        teaser: Teaser
+        perex: Perex
         source_url: Source Url
         source_url_title: Source Url Title
         access_count: Access Count
-        image: Image
         published_at: Published At

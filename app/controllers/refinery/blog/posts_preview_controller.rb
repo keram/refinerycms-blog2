@@ -13,14 +13,18 @@ module Refinery
       private
 
       def post_params
-        params.require(:post).permit(
-            :title, :body, :teaser, :source_url,
-            :source_url_title, :access_count,
-            :status, :featured_image_id, :published_at,
-            :tag_list, :custom_slug,
-            :browser_title, :meta_description,
-            category_ids: [],
-            author_ids: [])
+        params.require(:post).permit(permitted_post_params)
+      end
+
+      def permitted_post_params
+        @permitted_post_params ||= [
+          :title, :body, :perex, :source_url,
+          :source_url_title, :access_count,
+          :status, :published_at,
+          :tag_list, :custom_slug,
+          :browser_title, :meta_description,
+          category_ids: [],
+          author_ids: []]
       end
 
       def set_post

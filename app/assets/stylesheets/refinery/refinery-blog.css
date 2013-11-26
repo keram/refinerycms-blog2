@@ -6,7 +6,7 @@ article footer nav a {
     margin: 0;
 }
 
-.teaser {
+.perex {
     font-size: 125%;
     line-height: 150%;
 }
@@ -49,7 +49,6 @@ article footer nav a {
     padding: 5px 10px;
     font-style: normal;
 }
-
 
 .featured-image {
     float: right;

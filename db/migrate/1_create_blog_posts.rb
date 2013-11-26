@@ -6,7 +6,6 @@ class CreateBlogPosts < ActiveRecord::Migration
       t.string :source_url
       t.string :source_url_title
       t.integer :access_count,    null: false, default: 0
-      t.integer :featured_image_id
       t.datetime :published_at,   null: false
 
       t.timestamps null: false
@@ -18,7 +17,7 @@ class CreateBlogPosts < ActiveRecord::Migration
       status: { type: :string, null: false, default: 'draft', limit: 16 },
       custom_slug: :string,
       body: :text,
-      teaser: :text
+      perex: :text
     })
 
     add_index :refinery_blog_post_translations, [:locale, :status, :slug], unique: true, name: 'index_on_locale_status_slug'
