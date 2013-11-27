@@ -23,12 +23,13 @@ module Refinery
           tab
         end
 
-      protected
+        protected
 
         def initialize
           Refinery::Blog::Posts.tabs << self # add me to the collection of registered page tabs
         end
       end
+
     end
   end
 end

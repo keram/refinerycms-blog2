@@ -1,30 +1,36 @@
+<% new_record = @category.new_record? %>
 <%= form_for [refinery, :admin_blog, @category],
               html: { data: { remote: true }} do |f| %>
 
   <div class="clearfix">
+    <%= render('/refinery/admin/locale_picker',
+                (new_record ?
+                  { url: 'new_admin_blog_category_path' } :
+                  { url: 'edit_admin_blog_category_path', url_options: { id: @category } })
+              ) if Refinery::I18n.frontend_locales.many? %>
+
     <div class="form-title">
       <h1>
-        <% if @category.new_record? %>
+        <% if new_record %>
           <%= t('create_new', scope: 'refinery.admin.blog.categories.actions') %>
         <% else %>
           <%= t('edit_category', scope: 'refinery.admin.blog.categories.actions') %>:
           <%= link_to_if @category.translation.persisted?, @category, refinery.blog_category_path(@category), target: '_blank' %>
-          <sup>
-          <%= record_meta_information @category %>
-          </sup>
         <% end %>
       </h1>
-      <p class="less-important">
-        <%= link_to refinery_plugin.title, refinery.admin_blog_root_path %> /
-        <%= link_to t('title', scope: 'refinery.admin.blog.categories.records'),
-                    refinery.admin_blog_categories_path %>
-      </p>
+      <div class="clearfix">
+        <div class="meta-informations right-side">
+          <%= record_meta_information @category unless new_record %>
+        </div>
+        <div class="breadcrumbs less-important">
+          <p >
+            <%= link_to refinery_plugin.title, refinery.admin_blog_root_path %> /
+            <%= link_to t('title', scope: 'refinery.admin.blog.categories.records'),
+                        refinery.admin_blog_categories_path %>
+          </p>
+        </div>
+      </div>
     </div>
-    <%= render('/refinery/admin/locale_picker',
-                (@category.new_record? ?
-                  { url: 'new_admin_blog_category_path' } :
-                  { url: 'edit_admin_blog_category_path', url_options: { id: @category } })
-              ) if Refinery::I18n.frontend_locales.many? %>
   </div>
 
 

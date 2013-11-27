@@ -9,6 +9,7 @@ module Refinery
     require 'refinery/blog/engine'
     require 'refinery/blog/configuration'
 
+    require 'refinery/blog/posts/posts'
     require 'refinery/blog/posts/tab'
 
     autoload :Version, 'refinery/blog/version'

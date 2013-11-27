@@ -1,30 +1,36 @@
+<% new_record = @post.new_record? %>
 <%= form_for [refinery, :admin_blog, @post],
               html: { data: { remote: true }} do |f| %>
-
   <div class="clearfix">
+    <%= render('/refinery/admin/locale_picker',
+                (new_record ?
+                  { url: 'new_admin_blog_post_path' } :
+                  { url: 'edit_admin_blog_post_path', url_options: { id: @post } })
+              ) if Refinery::I18n.frontend_locales.many? %>
+
     <div class="form-title">
       <h1>
-      <% if @post.new_record? %>
+      <% if new_record %>
         <%= t('create_new', scope: 'refinery.admin.blog.posts.actions') %>
       <% else %>
         <%= t('edit_post', scope: 'refinery.admin.blog.posts.actions') %>:
         <%= link_to_if @post.translation.persisted?, @post.title, refinery.blog_post_path(@post), target: '_blank' %>
-        <sup>
-        <%= record_meta_information @post %>
-        </sup>
       <% end -%>
       </h1>
-      <p class="less-important">
-        <%= link_to refinery_plugin.title, refinery.admin_blog_root_path %> /
-        <%= link_to t('title', scope: 'refinery.admin.blog.posts.records'),
-                    refinery.admin_blog_posts_path %>
-      </p>
+
+      <div class="clearfix">
+        <div class="meta-informations right-side">
+          <%= record_meta_information @post unless new_record %>
+        </div>
+        <div class="breadcrumbs less-important">
+          <p>
+            <%= link_to refinery_plugin.title, refinery.admin_blog_root_path %> /
+            <%= link_to t('title', scope: 'refinery.admin.blog.posts.records'),
+                        refinery.admin_blog_posts_path %>
+          </p>
+        </div>
+      </div>
     </div>
-    <%= render('/refinery/admin/locale_picker',
-                (@post.new_record? ?
-                  { url: 'new_admin_blog_post_path' } :
-                  { url: 'edit_admin_blog_post_path', url_options: { id: @post } })
-              ) if Refinery::I18n.frontend_locales.many? %>
   </div>
 
   <%= render '/refinery/admin/error_messages',
@@ -89,7 +95,7 @@
       </div>
     </div>
     <div class="hemisquare right-side">
-      <div class="field <%= 'hide' if @post.new_record? %>">
+      <div class="field <%= 'hide' if new_record %>">
         <%= f.label :published_at %>
         <%= f.datetime_select :published_at %>
       </div>

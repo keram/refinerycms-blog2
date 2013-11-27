@@ -9,6 +9,10 @@
     <%= render_content(@post.perex) %>
   </section>
 
+  <% Refinery::Blog::Posts.get_extras(:before, :body).each do |key, extra| %>
+    <%= extra.call(@post).wrapped_html() %>
+  <% end -%>
+
   <% if @post.featured_image.present? -%>
   <section class="featured-image">
     <%= image_fu @post.featured_image,
@@ -23,9 +27,8 @@
   <section class="body" itemprop="articleBody">
     <%= render_content(@post.body) %>
   </section>
-
+  <hr>
   <footer class="footer">
-    <hr>
     <p>
       <span class="author">
         <%= t('posted_by', scope: 'refinery.blog.posts') %>
