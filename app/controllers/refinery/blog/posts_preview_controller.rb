@@ -24,7 +24,10 @@ module Refinery
           :tag_list, :custom_slug,
           :browser_title, :meta_description,
           category_ids: [],
-          author_ids: []]
+          author_ids: [],
+          imagenizations_attributes: [
+            :id, :image_id, :featured, :position,
+            image_attributes: [:id, :alt, :caption]]]
       end
 
       def set_post

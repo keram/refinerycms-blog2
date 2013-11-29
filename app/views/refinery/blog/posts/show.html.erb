@@ -6,7 +6,9 @@
 <% end %>
 
 <% content_for :body do %>
-  <%= render 'post' %>
+  <% cache refinery_record_cache_key @post do -%>
+    <%= render 'post' %>
+  <% end -%>
 <% end %>
 
 <%= render '/refinery/blog/shared/side_body' %>

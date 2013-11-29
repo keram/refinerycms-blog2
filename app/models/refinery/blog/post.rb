@@ -10,6 +10,8 @@ module Refinery
       extend GlobalizeFinder
       include Refinery::Blog::Engine.helpers
 
+      is_imageable
+
       STATES = %w(draft review live)
 
       translates :title, :status, :slug, :custom_slug, :body, :perex, include: :seo_meta
@@ -106,6 +108,10 @@ module Refinery
         translation.title if translation
       end
 
+      def featured_image
+        @featured_image ||= images.first
+      end
+
       def opengraph_title
         browser_title.presence || title
       end
@@ -116,6 +122,12 @@ module Refinery
 
       def opengraph_site_name
         Refinery::Core.site_name
+      end
+
+      def opengraph_image
+        if featured_image.present?
+          featured_image.thumbnail(geometry: :medium).url(host: Refinery::Images.dragonfly_url_host)
+        end
       end
 
       def publish

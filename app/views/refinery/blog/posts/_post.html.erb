@@ -1,5 +1,4 @@
-<% cache refinery_record_cache_key @post do -%>
-<% content_for :opengraph_meta_tags, opengraph_meta_tags_for(@post) %>
+<% content_for :meta, opengraph_meta_tags_for(@post) %>
 <article role="article" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     <h1 itemprop="name"><%= @post.title %></h1>
@@ -8,10 +7,6 @@
   <section class="perex" itemprop="articlePerex">
     <%= render_content(@post.perex) %>
   </section>
-
-  <% Refinery::Blog::Posts.get_extras(:before, :body).each do |key, extra| %>
-    <%= extra.call(@post).wrapped_html() %>
-  <% end -%>
 
   <% if @post.featured_image.present? -%>
   <section class="featured-image">
@@ -38,11 +33,13 @@
       </span>
       <time class="date posted_at" itemprop="datePublished"
         datetime="<%=l @post.published_at.to_date, format: :default %>" >
-        <%= t('posted_at', scope: 'refinery.blog.posts') %> <%= l(@post.published_at.to_date, format: :long) %>
+        <%= t('posted_at', scope: 'refinery.blog.posts') %>
+        <%= l(@post.published_at.to_date, format: :long) %>
       </time>
       <% if @post.source_url.present? %>
         <br>
-        <%= t('source', scope: 'refinery.blog.posts') %>: <%= link_to @post.source_url_title.presence || @post.source_url, @post.source_url,
+        <%= t('source', scope: 'refinery.blog.posts') %>:
+        <%= link_to @post.source_url_title.presence || @post.source_url, @post.source_url,
                     itemprop: 'isBasedOnUrl' %>
       <% end %>
     </p>
@@ -53,4 +50,3 @@
 <%= sharing_service_for @post %>
 <hr>
 <%= comment_service_for @post %>
-<% end -%>

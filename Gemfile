@@ -5,6 +5,7 @@ gemspec
 gem 'refinerycms-i18n', github: 'keram-refinery/refinerycms-i18n', branch: 'refinery_light'
 gem 'refinerycms-clientside', '~> 0.0.1', github: 'keram-refinery/refinerycms-clientside', branch: 'master'
 gem 'refinerycms-links', '~> 0.0.1', github: 'keram/refinerycms-links', branch: 'master'
+gem 'refinerycms-imageable', '~> 0.0.1', github: 'keram/refinerycms-imageable', branch: 'master'
 
 git 'git://github.com/keram-refinery/refinerycms.git', branch: 'refinery_light' do
   gem 'refinerycms'

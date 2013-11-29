@@ -29,6 +29,13 @@ module Refinery
         Refinery::Core.config.register_stylesheet 'refinery/refinery-blog'
       end
 
+      initializer 'register images tab' do
+        Refinery::Blog::Posts::Tab.register do |tab|
+          tab.name = 'imageable'
+          tab.partial = '/refinery/admin/imagenization/tabs/images'
+        end unless Refinery::Blog::Posts.tabs.collect(&:name).include?('imageable')
+      end
+
       initializer 'reload routes' do
         # This condition is here because somehow, in testing, blog is loaded before authentication,
         #  and that probably cause this nasty error:

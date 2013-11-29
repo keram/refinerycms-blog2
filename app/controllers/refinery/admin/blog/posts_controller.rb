@@ -6,12 +6,16 @@ module Refinery
         before_action :find_all_categories, except: :index
         before_action :find_all_users, except: :index
 
-        crudify :'refinery/blog/post'
+        crudify :'refinery/blog/post', order: 'published_at DESC'
 
         def new
           @post = Refinery::Blog::Post.new
           @post.authors << current_refinery_user
           @post.categories << @categories.first if @categories.any?
+        end
+
+        def show
+          present(@post)
         end
 
         def toggle_publish
@@ -81,7 +85,10 @@ module Refinery
             :tag_list, :custom_slug,
             :browser_title, :meta_description,
             category_ids: [],
-            author_ids: []]
+            author_ids: [],
+            imagenizations_attributes: [
+              :id, :image_id, :featured, :position,
+              image_attributes: [:id, :alt, :caption]]]
         end
 
         def paginate_per_page

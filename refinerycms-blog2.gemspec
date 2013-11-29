@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
 
   # Runtime dependencies
   s.add_dependency             'refinerycms-core',    '~> 2.718.0.dev'
+  s.add_dependency             'refinerycms-imageable', '~> 0.0.1'
   s.add_dependency             'acts-as-taggable-on'
 
   # Development dependencies (usually used for testing)
