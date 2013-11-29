@@ -73,7 +73,7 @@ module Refinery
         end
 
         def previous(item)
-          published_before(item.published_at).first
+          published_before(item.published_at).reorder(published_at: :desc).first
         end
 
         def next(current_record)
