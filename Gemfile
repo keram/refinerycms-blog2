@@ -42,12 +42,11 @@ end
 # in production environments by default.
 gem 'sass-rails', '~> 4.0.1'
 gem 'coffee-rails', '~> 4.0.1'
-gem 'uglifier', '~> 2.3.1'
+gem 'uglifier', '~> 2.3.3'
 
-gem 'turbolinks', '~> 1.3.1'
+gem 'turbolinks', '~> 2.0.0'
 
 gem 'jquery-rails', '~> 3.0.4'
-gem 'jquery-ui-rails', '~> 4.1.0'
 gem 'i18n-iso639matrix', '~> 0.0.1', github: 'keram/i18n-iso639matrix', branch: 'master'
 
 gem 'acts_as_opengraph', '~> 0.0.5'
