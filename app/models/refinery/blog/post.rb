@@ -2,6 +2,7 @@ require 'friendly_id'
 require 'globalize'
 require 'acts-as-taggable-on'
 require 'seo_meta'
+require 'refinery/imageable/extension'
 
 module Refinery
   module Blog
@@ -14,7 +15,7 @@ module Refinery
 
       STATES = %w(draft review live)
 
-      translates :title, :status, :slug, :custom_slug, :body, :perex, include: :seo_meta
+      translates :title, :status, :slug, :custom_slug, :body, :perex, :teaser, include: :seo_meta
 
       class Translation
         is_seo_meta
@@ -136,6 +137,10 @@ module Refinery
 
       def unpublish
         translation.update_attribute(:status, 'draft')
+      end
+
+      def teaser_or_perex
+        @teaser_or_perex ||= teaser.presence || perex.presence
       end
 
     private

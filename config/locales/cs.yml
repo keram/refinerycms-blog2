@@ -27,6 +27,7 @@ cs:
         slug: Slug
         body: Body
         perex: Perex
+        teaser: Teaser
         source_url: Source Url
         source_url_title: Source Url Title
         access_count: Access Count

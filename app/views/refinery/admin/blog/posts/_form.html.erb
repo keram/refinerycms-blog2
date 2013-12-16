@@ -45,11 +45,16 @@
 
   <div id="post-parts" class="ui-tabs">
     <ul class="ui-tabs-nav nojs-hide">
+
+      <li class="post-part">
+        <a href="#blog-perex"><%= t('perex', scope: 'activerecord.attributes.refinery/blog/post') %></a>
+      </li>
+
       <li class="post-part">
         <a href="#blog-body"><%= t('body', scope: 'activerecord.attributes.refinery/blog/post') %></a>
       </li>
       <li class="post-part">
-        <a href="#blog-perex"><%= t('perex', scope: 'activerecord.attributes.refinery/blog/post') %></a>
+        <a href="#blog-teaser"><%= t('teaser', scope: 'activerecord.attributes.refinery/blog/post') %></a>
       </li>
 
       <% ::Refinery::Blog::Posts.tabs.each_with_index do |tab, tab_index| %>
@@ -59,6 +64,14 @@
       <% end %>
     </ul>
 
+
+    <div id="blog-perex" class="field">
+      <%= f.label :perex, class: 'js-hide' %>
+      <%= render '/refinery/admin/wysiwyg',
+                  f: f,
+                  field: :perex -%>
+    </div>
+
     <div id="blog-body" class="field">
       <%= f.label :body, class: 'js-hide' %>
       <%= render '/refinery/admin/wysiwyg',
@@ -66,11 +79,11 @@
                   field: :body -%>
     </div>
 
-    <div id="blog-perex" class="field">
-      <%= f.label :perex, class: 'js-hide' %>
+    <div id="blog-teaser" class="field">
+      <%= f.label :teaser, class: 'js-hide' %>
       <%= render '/refinery/admin/wysiwyg',
                   f: f,
-                  field: :perex -%>
+                  field: :teaser -%>
     </div>
 
     <% ::Refinery::Blog::Posts.tabs.each_with_index do |tab, tab_index| %>

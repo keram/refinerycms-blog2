@@ -4,9 +4,11 @@
     <h1 itemprop="name"><%= @post.title %></h1>
   </header>
 
+<% if @post.perex.present? %>
   <section class="perex" itemprop="articlePerex">
     <%= render_content(@post.perex) %>
   </section>
+<% end %>
 
   <% if @post.featured_image.present? -%>
   <section class="featured-image">
@@ -22,6 +24,7 @@
   <section class="body" itemprop="articleBody">
     <%= render_content(@post.body) %>
   </section>
+
   <hr>
   <footer class="footer">
     <p>

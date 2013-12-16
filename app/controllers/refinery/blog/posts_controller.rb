@@ -13,6 +13,7 @@ module Refinery
         if request.format.rss?
           @posts = Post.with_globalize
                       .recent(max_results_for_rss)
+                      .order(published_at: :desc)
                       .includes(:categories)
         end
 

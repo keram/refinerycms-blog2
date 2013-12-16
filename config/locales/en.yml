@@ -67,6 +67,7 @@ en:
         title: Title
         custom: Custom slug
         body: Body
+        teaser: Teaser
         perex: Perex
         source_url: Source url
         source_url_title: Source url title

@@ -3,7 +3,7 @@
 <% posts.each do |post| %>
   <li itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
     <h2><%= link_to post.title, refinery.blog_post_path(post), itemprop: 'name' %></h2>
-    <% if post.featured_image.present? || post.perex.present? %>
+    <% if post.featured_image.present? || post.teaser_or_perex.present? %>
       <div class="clearfix">
       <% if post.featured_image.present? %>
         <section class="featured-image" >
@@ -17,9 +17,9 @@
         </section>
       <% end %>
 
-      <% if post.perex.present? -%>
-        <section class="perex" itemprop="description" >
-          <%= render_content(post.perex) %>
+      <% if post.teaser_or_perex.present? -%>
+        <section class="teaser" itemprop="description" >
+          <%= render_content(post.teaser_or_perex) %>
           <p>
             <%= link_to t('.read_more'), refinery.blog_post_path(post) %>
           </p>

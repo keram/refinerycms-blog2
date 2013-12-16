@@ -17,7 +17,9 @@ class CreateBlogPosts < ActiveRecord::Migration
       status: { type: :string, null: false, default: 'draft', limit: 16 },
       custom_slug: :string,
       body: :text,
-      perex: :text
+      teaser: :text,
+      perex: :text,
+      teaser: :text
     })
 
     add_index :refinery_blog_post_translations, [:locale, :status, :slug], unique: true, name: 'index_on_locale_status_slug'

@@ -79,7 +79,7 @@ module Refinery
 
         def permitted_post_params
           @permitted_post_params ||= [
-            :title, :body, :perex, :source_url,
+            :title, :body, :perex, :teaser, :source_url,
             :source_url_title, :access_count,
             :status, :published_at,
             :tag_list, :custom_slug,
