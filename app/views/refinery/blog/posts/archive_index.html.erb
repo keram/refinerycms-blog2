@@ -1,0 +1,29 @@
+<% content_for :title do %>
+  <% @page.ancestors.each do |page| %>
+    <%= link_to page.title, refinery.url_for(page.url) %> /
+  <% end -%>
+  <%= @page.title %>
+<% end %>
+
+<% content_for :body do %>
+  <% beginning_of_month = Time.now.beginning_of_month %>
+  <% cache [beginning_of_month, Globalize.locale] do %>
+    <% dates = posts_dates_group_by_year_from_date beginning_of_month %>
+    <% dates.each do |year, dates| %>
+      <div class="year-block">
+        <h3><%= link_to "#{year} (#{dates.count})", refinery.blog_archive_posts_path(year) %> </h3>
+        <ul>
+          <% dates.group_by {|date| date.month }.each do |month, dates| %>
+            <li>
+              <%= link_to "#{t("date.month_names")[month]} (#{dates.count})",
+                          refinery.blog_archive_posts_path(year, month) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
+<% end -%>
+
+<%= render '/refinery/blog/shared/side_body' %>
+<%= render '/refinery/content_page' %>

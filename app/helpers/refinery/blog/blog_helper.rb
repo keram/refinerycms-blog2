@@ -50,6 +50,20 @@ module Refinery
         }.to_json
       end
 
+      def posts_dates_group_by_year_from_date date
+        Refinery::Blog::Post.order(published_at: :desc).
+            published_dates_older_than(date).
+            group_by {|date| date.year }
+      end
+
+      def oldest_post
+        Refinery::Blog::Post.live.order(:published_at).first
+      end
+
+      def newest_post
+        Refinery::Blog::Post.live.order(:published_at).last
+      end
+
     end
   end
 end

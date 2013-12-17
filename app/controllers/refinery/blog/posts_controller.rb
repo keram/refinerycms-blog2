@@ -37,18 +37,25 @@ module Refinery
 
       def archive
         @page = Page.find_by(plugin_page_id: 'blog_archive')
+        @month = params[:month].to_s.to_i
+        @year = params[:year].to_s.to_i
 
-        if params[:month].present?
-          date = "#{params[:month]}/#{params[:year]}"
+        if @month > 0
+          date = "#{@month}/#{@year}"
           archive_date = Time.parse(date)
           @date_title = ::I18n.l(archive_date, format: '%B %Y')
           @posts = Post.live.by_month(archive_date).paginate(page: paginate_page, per_page: paginate_per_page)
         else
-          date = "01/#{params[:year]}"
+          date = "01/#{@year}"
           archive_date = Time.parse(date)
           @date_title = ::I18n.l(archive_date, format: '%Y')
           @posts = Post.live.by_year(archive_date).paginate(page: paginate_page, per_page: paginate_per_page)
         end
+      end
+
+      def archive_index
+        @page = Page.find_by(plugin_page_id: 'blog_archive')
+
       end
 
       private

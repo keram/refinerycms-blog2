@@ -1,0 +1,12 @@
+<% current_date = Time.now %>
+<% cache [current_date.year, current_date.month, Globalize.locale] do -%>
+  <% dates = posts_dates_group_by_year_from_date current_date %>
+  <div class="widget clearfix archive">
+    <h2><%= t('.title') %></h2>
+    <ul>
+    <% dates.each do |year, dates| %>
+      <li><%= link_to "#{year} (#{dates.count})", refinery.blog_archive_posts_path(year) %> </li>
+    <% end %>
+    </ul>
+  </div>
+<% end -%>

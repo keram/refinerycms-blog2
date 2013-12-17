@@ -6,6 +6,16 @@ if plugin
 
     # Frontend routes
     if plugin.page.present? && Refinery::Pages.marketable_urls
+      # For some strange reasons localized urls doesn't work when rules for archive are with
+      # others in Globalize.with_locales block (categories, posts)
+      # maybe some crazy internal sorting there happens, anyway I hope we will find explanation.
+      Globalize.with_locales plugin.page.translated_locales do |locale|
+        if plugin.archive_page.present?
+          get "#{plugin.archive_page.nested_path}", to: 'blog/posts#archive_index'
+          get "#{plugin.archive_page.nested_path}/:year(/:month)", to: 'blog/posts#archive', as: "blog_archive_posts_#{locale}"
+        end
+      end
+
       Globalize.with_locales plugin.page.translated_locales do |locale|
         if plugin.categories_page.present?
           get plugin.categories_page.nested_path, to: 'blog/categories#index', as: "blog_categories_#{locale}"
@@ -14,10 +24,6 @@ if plugin
 
         if plugin.tags_page.present?
           get "#{plugin.tags_page.nested_path}/:name", to: 'blog/posts#tagged', as: "tagged_posts_#{locale}"
-        end
-
-        if plugin.archive_page.present?
-          get "#{plugin.archive_page.nested_path}/:year(/:month)", to: 'blog/posts#archive', as: "archive_posts_#{locale}"
         end
 
         get plugin.page.nested_path, to: 'blog/posts#index', as: "blog_posts_#{locale}"
@@ -32,6 +38,7 @@ if plugin
         resources :posts, only: [:show]
         resources :categories, only: [:index, :show]
 
+        get 'archive', to: 'posts#archive_index'
         get 'archive/:year(/:month)', to: 'posts#archive', as: 'archive_posts'
         get 'tagged/:tag_id(/:tag_name)', to: 'posts#tagged', as: 'tagged_posts'
         get 'feed.rss', to: 'posts#index', as: 'rss_feed', defaults: {format: 'rss'}

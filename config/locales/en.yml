@@ -56,6 +56,8 @@ en:
           title: Latest Posts
         tags:
           title: Tags
+        archive:
+          title: Archive
         social_networks:
           follow_on: Follow on %{network}
   activerecord:

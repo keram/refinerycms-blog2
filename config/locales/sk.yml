@@ -1,4 +1,4 @@
-en:
+sk:
   refinery:
     plugins:
       blog:
@@ -56,6 +56,8 @@ en:
           title: Najnovšie články
         tags:
           title: Tagy
+        archive:
+          title: Archív
         social_networks:
           follow_on: Sleduj cez %{network}
   activerecord:

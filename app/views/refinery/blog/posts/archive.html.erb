@@ -3,11 +3,40 @@
   <% @page.ancestors.each do |page| %>
     <%= link_to page.title, refinery.url_for(page.url) %> /
   <% end -%>
-  <%= @page.title %>: <%= @date_title %>
+  <%= link_to @page.title, refinery.url_for(@page.url) %> / <%= @date_title %>
 <% end %>
 
 <% content_for :body do %>
-  <%= render partial: '/refinery/blog/shared/posts', locals: { posts: @posts } %>
+  <% if @month.present? %>
+    <%= render partial: '/refinery/blog/shared/posts', locals: { posts: @posts } %>
+    <nav>
+    <% if @month > 1 %>
+      <%= link_to @month - 1,
+                  refinery.blog_archive_posts_path(@year, @month),
+                  rel: 'prev' %>
+    <% end %>
+    </nav>
+  <% else %>
+    <ul>
+      <% @posts.each do |post| %>
+        <li>
+          <%= link_to post.title, refinery.blog_post_path(post) %>
+        </li>
+      <% end %>
+    </ul>
+    <nav>
+    <% if @year > oldest_post.published_at.year %>
+      <%= link_to @year - 1,
+                  refinery.blog_archive_posts_path(@year - 1),
+                  rel: 'prev' %>
+    <% end %>
+    <% if @year < newest_post.published_at.year %>
+      <%= link_to @year + 1,
+                  refinery.blog_archive_posts_path(@year + 1),
+                  rel: 'next' %>
+    <% end %>
+    </nav>
+  <% end %>
 <% end %>
 
 <%= render '/refinery/blog/shared/side_body' %>
