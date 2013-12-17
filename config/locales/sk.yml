@@ -1,4 +1,4 @@
-sk:
+en:
   refinery:
     plugins:
       blog:
@@ -7,28 +7,71 @@ sk:
       blog:
         posts:
           actions:
-            create_new: Pridať Post
+            create_new: Pridať nový článok
+            edit_post: Upraviť článok
           records:
-            title: Posts
-            sorry_no_results: Ľutujeme, ale neboli nájdené žiadne výsledky.
-            no_items_yet: Nie sú vytvorené žiadne Posts. Kliknite na "Pridať Post" pre pridanie prvého post.
+            title: Články
+            sorry_no_results: Žiadne výsledky neboli nájdené.
+            no_items_yet: 'Nie sú žiadne články. Klikni na "Pridať nový článok" pre pridanie prvého.'
           post:
-            view_live: Zobraziť náhľad post\n(otvorí sa v novom okne)
-            edit: Upraviť post
-            delete: Zmazať post
+            view_live: Zobraziť živý náhľad (otvorí nové okno)
+            edit: Upraviť tento článok
+            delete: Zmazať článok
+            translation_not_exists: Preklad článku do aktuálneho jazyka pre verejnú časť neexistuje.
+            access_count: Počet prístupov
+          form:
+            preview_title: Zobraziť živý náhľad v novom okne
+        categories:
+          actions:
+            create_new: Pridať novú kategóriu
+            edit_category: Upraviť kategóriu
+          records:
+            title: Kategórie
+            sorry_no_results: Sorry! There are no results found.
+            no_items_yet: Nie sú žiadne kategórie. Klikni na "Pridať novú kategóriu" pre pridanie prvej.
+          category:
+            translation_not_exists: Preklad kategórie do aktuálneho jazyka pre verejnú časť neexistuje.
+            view_live: Zobraziť živý náhľad (otvorí nové okno)
+            edit: Upraviť túto kategóriu
+            delete: Zmazať kategóriu
+      links_dialog:
+        index:
+          blog_posts: Blog články
     blog:
       posts:
+        posted_by: Publikoval
+        posted_at: dňa
+        source: Zdroj
+      posts_preview:
         show:
-          other: Daľšie Posts
+          this_is_blog_post_preview: Toto je náhľad blog článku.
+      shared:
+        posts:
+          read_more: Čítať ďalej
+        categories:
+          title: Kategórie
+        rss_feed:
+          title: Prihlásiť RSS k odberu
+        latest_posts:
+          title: Najnovšie články
+        tags:
+          title: Tagy
+        social_networks:
+          follow_on: Sleduj cez %{network}
   activerecord:
+    models:
+      'refinery/blog/post': článok
+      'refinery/blog/category': kategória
     attributes:
       'refinery/blog/post':
-        title: Title
-        slug: Slug
-        body: Body
-        teaser: Teaser
+        title: Nadpis
+        custom: Vlastný url identifikátor
+        body: Telo
+        teaser: Ukážka
         perex: Perex
-        source_url: Source Url
-        source_url_title: Source Url Title
-        access_count: Access Countclick_link 'Preview'
-        published_at: Published At
+        source_url: Adresa zdroja
+        source_url_title: Názov adresy zdroja
+        access_count: Počet prístupov
+        published_at: Verejný od
+      'refinery/blog/category':
+        title: Názov
