@@ -1,5 +1,10 @@
+<% blog_post_for_dialog = {
+          id: blog_post_link.id,
+          title: blog_post_link.title,
+          url: refinery.blog_post_path(blog_post_link)
+        } %>
 <li class="record" id="<%= dom_id(blog_post_link) %>"
-  data-dialog="<%= blog_post_to_link_dialog(blog_post_link) %>">
+  data-dialog="<%= blog_post_for_dialog.to_json %>">
   <div class="detail">
     <span class="title">
       <%= blog_post_link.title %>

@@ -42,14 +42,6 @@ module Refinery
         end
       end
 
-      def blog_post_to_link_dialog post
-        {
-          id: post.id,
-          title: post.title,
-          url: refinery.blog_post_path(post)
-        }.to_json
-      end
-
       def posts_dates_group_by_year_from_date date
         Refinery::Blog::Post.order(published_at: :desc).
             published_dates_older_than(date).
