@@ -8,6 +8,9 @@
     <% if post.live? %>
       <span class="label" title="<%= t('.access_count') %>"><%= post.access_count %></span>
     <% end %>
+    <span class="published-at">
+      <%= post.published_at.strftime('%b %d, %Y') if post.live? %>
+    </span>
   </div>
 
   <span class="actions">

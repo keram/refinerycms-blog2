@@ -12,12 +12,11 @@
 
   <% if @post.featured_image.present? -%>
   <section class="featured-image">
-    <%= image_fu @post.featured_image,
-                Refinery::Images.user_image_sizes[:large],
+    <%= image_tag @post.featured_image.url,
                 itemprop:'image',
                 role: 'banner',
-                alt: @post.featured_image.alt,
-                class: 'size-large'%>
+                alt: @post.featured_image.title,
+                class: 'size-original' %>
   </section>
   <% end -%>
 
@@ -50,6 +49,6 @@
     <%= render partial: '/refinery/blog/posts/nav' %>
   </footer>
 </article>
-<%= sharing_service_for @post %>
 <hr>
+<%= sharing_service_for @post %>
 <%= comment_service_for @post %>
