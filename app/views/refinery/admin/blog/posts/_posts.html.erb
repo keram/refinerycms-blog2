@@ -1,7 +1,5 @@
 <%= will_paginate @posts %>
-<% group_by_date(@posts, :published_at).each do |container| %>
-  <h3><%= l((posts_group = container.last).first.published_at, :format => :short) %></h3>
-  <ul class="records">
-    <%= render partial: 'post', collection: posts_group %>
-  </ul>
-<% end -%>
+<ul class="records">
+  <%= render partial: 'post', collection: @posts %>
+</ul>
+<%= will_paginate @posts %>
