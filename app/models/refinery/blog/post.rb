@@ -38,7 +38,7 @@ module Refinery
       friendly_id :title, friendly_id_options
 
       acts_as_taggable
-      acts_as_opengraph
+      acts_as_opengraph if self.table_exists?
 
       validates :title, presence: true,
                         uniqueness: true,
