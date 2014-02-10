@@ -49,7 +49,7 @@ article footer nav a {
     font-style: normal;
 }
 
-.featured-image {
+article .featured-image {
     float: right;
     border: solid 3px #eee;
     margin-left: 20px;
