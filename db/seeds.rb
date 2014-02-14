@@ -19,6 +19,16 @@ if plugin
       plugin_page_id: plugin.name,
       page_type: 'Blog'
     },
+    blog_post: {
+      title: 'Post',
+      status: 'live',
+      parent: :blog,
+      deletable: false,
+      show_in_menu: false,
+      custom_slug: 'post',
+      plugin_page_id: "#{plugin.name}_post",
+      page_type: 'Blog'
+    },
     blog_categories: {
       title: 'Categories',
       status: 'live',
