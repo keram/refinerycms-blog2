@@ -54,6 +54,10 @@ class CreateBlogPosts < ActiveRecord::Migration
 
     if defined?(::Refinery::Page)
       ::Refinery::Page.delete_all({ plugin_page_id: 'blog' })
+      ::Refinery::Page.delete_all({ plugin_page_id: 'blog_posts' })
+      ::Refinery::Page.delete_all({ plugin_page_id: 'blog_categories' })
+      ::Refinery::Page.delete_all({ plugin_page_id: 'blog_tags' })
+      ::Refinery::Page.delete_all({ plugin_page_id: 'blog_archive' })
     end
 
     drop_table :refinery_blog_posts
