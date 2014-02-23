@@ -7,7 +7,7 @@ module Refinery
       before_action :set_post
 
       def show
-        @page = Page.live.includes(:translations).find_by(plugin_page_id: 'blog_post')
+        @page = Page.live.includes(:translations).find_by(plugin_page_id: 'blog_posts')
       end
 
       private

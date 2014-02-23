@@ -28,7 +28,7 @@ if plugin
 
         get plugin.page.nested_path, to: 'blog/posts#index', as: "blog_posts_#{locale}"
         get "#{plugin.page.nested_path}/feed.rss", to: 'blog/posts#index', as: "rss_feed_#{locale}", defaults: { format: 'rss' }
-        get "#{plugin.page.nested_path}/:id", to: 'blog/posts#show', as: "blog_post_#{locale}"
+        get "#{plugin.posts_page.nested_path}/:id", to: 'blog/posts#show', as: "blog_post_#{locale}"
       end
     else
 

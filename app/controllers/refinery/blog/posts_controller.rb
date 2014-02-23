@@ -24,7 +24,7 @@ module Refinery
       end
 
       def show
-        @page = Page.live.includes(:translations).find_by(plugin_page_id: 'blog_post')
+        @page = Page.live.includes(:translations).find_by(plugin_page_id: 'blog_posts')
         @post.increment!(:access_count, 1) if @post.live? && !current_refinery_user
 
         present(@post)

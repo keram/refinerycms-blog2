@@ -19,15 +19,26 @@ if plugin
       plugin_page_id: plugin.name,
       page_type: 'Blog'
     },
-    blog_post: {
-      title: 'Post',
+    blog_posts: {
+      title: 'Posts',
       status: 'live',
       parent: :blog,
       deletable: false,
       show_in_menu: false,
-      custom_slug: 'post',
-      plugin_page_id: "#{plugin.name}_post",
-      page_type: 'Blog'
+      custom_slug: 'posts',
+      plugin_page_id: "#{plugin.name}_posts",
+      page_type: 'Blog',
+      page_parts_attributes: {
+        title: {
+          active: false
+        },
+        perex: {
+          active: false
+        },
+        sidebody: {
+          active: true
+        }
+      }
     },
     blog_categories: {
       title: 'Categories',
