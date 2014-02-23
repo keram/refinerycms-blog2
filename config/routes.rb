@@ -17,6 +17,9 @@ if plugin
       end
 
       Globalize.with_locales plugin.page.translated_locales do |locale|
+        get plugin.page.nested_path, to: 'blog/posts#index', as: "blog_posts_#{locale}"
+        get "#{plugin.page.nested_path}/feed.rss", to: 'blog/posts#index', as: "rss_feed_#{locale}", defaults: { format: 'rss' }
+
         if plugin.categories_page.present?
           get plugin.categories_page.nested_path, to: 'blog/categories#index', as: "blog_categories_#{locale}"
           get "#{plugin.categories_page.nested_path}/:id", to: 'blog/categories#show', as: "blog_category_#{locale}"
@@ -26,9 +29,9 @@ if plugin
           get "#{plugin.tags_page.nested_path}/:name", to: 'blog/posts#tagged', as: "tagged_posts_#{locale}"
         end
 
-        get plugin.page.nested_path, to: 'blog/posts#index', as: "blog_posts_#{locale}"
-        get "#{plugin.page.nested_path}/feed.rss", to: 'blog/posts#index', as: "rss_feed_#{locale}", defaults: { format: 'rss' }
-        get "#{plugin.posts_page.nested_path}/:id", to: 'blog/posts#show', as: "blog_post_#{locale}"
+        if plugin.posts_page.present?
+          get "#{plugin.posts_page.nested_path}/:id", to: 'blog/posts#show', as: "blog_post_#{locale}"
+        end
       end
     else
 
