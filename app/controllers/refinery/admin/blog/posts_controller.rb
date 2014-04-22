@@ -11,7 +11,7 @@ module Refinery
         def new
           @post = Refinery::Blog::Post.new
           @post.authors << current_refinery_user
-          @post.categories << @categories.first if @categories.any?
+#          @post.categories << @categories.first if @categories.any?
         end
 
         def show
